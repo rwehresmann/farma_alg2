@@ -2,7 +2,7 @@ class User
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  attr_accessor :id, :name, :email, :password, :password_confirmation, :remember_me, :guest, :prof
+  attr_accessor :id, :name, :email, :password, :password_confirmation, :remember_me, :guest, :teacher
 
   before_save :generate_gravatar_hash
 
@@ -43,7 +43,7 @@ class User
   field :name, :type => String
   field :gravatar
   field :admin, :type => Boolean, default: false
-  field :prof, :type => Boolean, default: false
+  field :teacher, :type => Boolean, default: false
   field :admin, :type => Boolean, default: false
   field :guest, :type => Boolean, default: false
   field :show_help, :type => Boolean, default: true
