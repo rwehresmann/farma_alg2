@@ -1,6 +1,14 @@
 require 'rails_helper'
 
 describe User do
+  context "when deleted" do
+    before { create(:user) }
+
+    it "delete associated learning objects" do
+      expect{ User.first.delete }.to change{ LearningObject.count }
+    end
+  end
+
   describe "Validations ->" do
     let(:user) { build(:user) }
 
@@ -32,6 +40,12 @@ describe User do
       it "is false by default" do
         expect(user.admin).to be_falsey
       end
+    end
+  end
+
+  describe "associations ->" do
+    it "has many learning objects" do
+      expect(User.reflect_on_association(:learning_objects).macro).to eq(:has_many)
     end
   end
 

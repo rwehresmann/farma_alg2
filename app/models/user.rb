@@ -48,6 +48,8 @@ class User
   field :guest, :type => Boolean, default: false
   field :show_help, :type => Boolean, default: true
 
+  has_many :learning_objects, dependent: :delete
+
   validates_presence_of :name
   validate :validate_admin
 
