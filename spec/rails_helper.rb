@@ -54,6 +54,8 @@ RSpec.configure do |config|
     DatabaseCleaner.clean_with(:truncation)
   end
 
+  # 'transaction' strategy is faster, but mongoid only deal with truncation
+  # strategy.
   config.before(:each) do
     DatabaseCleaner.strategy = :truncation
   end
