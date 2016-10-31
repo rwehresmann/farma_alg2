@@ -43,6 +43,28 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
+  # Disable rspec implicit wrapping of tests in a database transaction.
+  config.use_transactional_fixtures = false
+
   # Include FactoryGirl methods like 'create' and 'build'
   config.include FactoryGirl::Syntax::Methods
+
+  # Before the entire test suit runs, clear the database out.
+  config.before(:suite) do
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.strategy = :truncation
+  end
+
+  # Before each test, start DatabaseCleaner strategy.
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+
+  # After each test, call clean strategy.
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
 end
