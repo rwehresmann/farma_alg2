@@ -1,6 +1,14 @@
 require 'rails_helper'
 
 describe Exercise, type: :model do
+  context "when deleted" do
+    before { create(:exercise, questions_count: 2) }
+
+    it "deletes associated introductions" do
+      expect{ Exercise.first.delete }.to change{ Question.count }
+    end
+  end
+
   describe "Validations ->" do
     let(:exercise) { build(:exercise) }
 

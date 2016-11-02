@@ -1,8 +1,8 @@
-class Exercise
+class Question
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  attr_accessor :id, :title, :content, :available, :questions_attributes
+  attr_accessor :id, :title, :content, :available, :languages
 
   before_create :set_position
 
@@ -10,12 +10,15 @@ class Exercise
   field :content, type: String
   field :available, type: Boolean, default: false
   field :position, type: Integer
+  field :languages
 
-  belongs_to :learning_object
-  has_many :questions, dependent: :delete
+  belongs_to :exercise
+  # has_many :test_cases, dependent: :delete
+  # has_many :last_answers, dependent: :delete #one last answer for each user
+  # has_many :statistics, dependent: :delete
 
   validates_presence_of :title, :content
-  #validates :available, :inclusion => {:in => [true, false]}
+  # validates :available, :inclusion => {:in => [true, false]}
 
   default_scope -> { desc(:position) }
 
