@@ -3,6 +3,14 @@ require 'rails_helper'
 describe LearningObject do
   let(:learning_object) { build(:learning_object) }
 
+  context "when deleted" do
+    before { create(:learning_object, introductions_count: 2) }
+
+    it "delete associated introductions" do
+      expect{ LearningObject.first.delete }.to change{ Introduction.count }
+    end
+  end
+
   describe "Validations ->" do
     it "is invalid with empty name" do
       learning_object.name = ""
@@ -35,6 +43,10 @@ describe LearningObject do
   describe "associations ->" do
     it "belongs to user" do
       expect(LearningObject.reflect_on_association(:user).macro).to eq(:belongs_to)
+    end
+
+    it "has many introductions" do
+      expect(LearningObject.reflect_on_association(:introductions).macro).to eq(:has_many)
     end
   end
 end
