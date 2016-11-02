@@ -44,22 +44,23 @@ class User
   field :gravatar
   field :admin, :type => Boolean, default: false
   field :teacher, :type => Boolean, default: false
-  field :admin, :type => Boolean, default: false
+  field :super_admin, :type => Boolean, default: false
   field :guest, :type => Boolean, default: false
   field :show_help, :type => Boolean, default: true
 
   has_many :learning_objects, dependent: :delete
 
   validates_presence_of :name
-  validate :validate_admin
+  validate :cannot_be_nil
 
   index({ email: 1 }, { unique: true, background: true })
 
   private
 
-   # Custom validation for admin
-   def validate_admin
+   # Custom validation for nil value
+   def cannot_be_nil
      errors.add(:admin, "cannot be nil") if admin.nil?
+     errors.add(:super_admin, "cannot be nil") if super_admin.nil?
    end
 
   # Gravatar URLs are based on an MD5 hash

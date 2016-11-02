@@ -10,6 +10,10 @@ FactoryGirl.define do
       admin true
     end
 
+    trait :super_admin do
+      super_admin true
+    end
+
     # Create a local variable with the number of learning objects to create.
     transient do
       learning_objects_count 2

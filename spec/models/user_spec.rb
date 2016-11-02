@@ -36,9 +36,15 @@ describe User do
       expect(user.valid?).to be_falsey
     end
 
-    describe "admin" do
+    it "is invalid with super_admin = nil" do
+      user.super_admin = nil
+      expect(user.valid?).to be_falsey
+    end
+
+    describe "'admin/super_admin' attributes" do
       it "is false by default" do
         expect(user.admin).to be_falsey
+        expect(user.super_admin).to be_falsey
       end
     end
   end
