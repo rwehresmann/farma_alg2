@@ -8,10 +8,12 @@ FactoryGirl.define do
 
     transient do
       introductions_count 0
+      exercises_count 0
     end
 
     after(:create) do |learning_object, evaluator|
       create_list(:introduction, evaluator.introductions_count, learning_object: learning_object)
+      create_list(:exercise, evaluator.exercises_count, learning_object: learning_object)
     end
   end
 end

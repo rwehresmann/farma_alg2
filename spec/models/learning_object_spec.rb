@@ -4,10 +4,14 @@ describe LearningObject do
   let(:learning_object) { build(:learning_object) }
 
   context "when deleted" do
-    before { create(:learning_object, introductions_count: 2) }
+    before { create(:learning_object, introductions_count: 2, exercises_count: 2) }
 
-    it "delete associated introductions" do
+    it "deletes associated introductions" do
       expect{ LearningObject.first.delete }.to change{ Introduction.count }
+    end
+
+    it "deletes associated exercises" do
+      expect{ LearningObject.first.delete }.to change{ Exercise.count }
     end
   end
 
