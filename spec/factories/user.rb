@@ -16,7 +16,7 @@ FactoryGirl.define do
 
     # Create a local variable with the number of learning objects to create.
     transient do
-      learning_objects_count 2
+      learning_objects_count 0
     end
 
     # Through evaluator we access the transient counter, and say that

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe User do
   context "when deleted" do
-    before { create(:user) }
+    before { create(:user, learning_objects_count: 2) }
 
     it "delete associated learning objects" do
       expect{ User.first.delete }.to change{ LearningObject.count }
