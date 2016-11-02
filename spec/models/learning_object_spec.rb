@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 describe LearningObject do
-  let(:learning_object) { build(:learning_object) }
-
   context "when deleted" do
     before { create(:learning_object, introductions_count: 2, exercises_count: 2) }
 
@@ -16,6 +14,8 @@ describe LearningObject do
   end
 
   describe "Validations ->" do
+    let(:learning_object) { build(:learning_object) }
+
     it "is invalid with empty name" do
       learning_object.name = ""
       expect(learning_object.valid?).to be_falsey

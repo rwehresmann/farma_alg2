@@ -13,6 +13,12 @@ describe Question, type: :model do
       question.content = ""
       expect(question).to_not be_valid
     end
+
+    describe "'available' attribute" do
+      it "is false by default" do
+        expect(question.available).to be_falsey
+      end
+    end
   end
 
   describe "Relationships ->" do

@@ -13,6 +13,12 @@ describe Introduction, type: :model do
         introduction.content = ""
         expect(introduction).to_not be_valid
       end
+
+      describe "'available' attribute" do
+        it "is false by default" do
+          expect(introduction.available).to be_falsey
+        end
+      end
     end
 
     describe "Relationships ->" do

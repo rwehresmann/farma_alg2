@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe User do
+describe User, type: :model do
   context "when deleted" do
     before { create(:user, learning_objects_count: 2) }
 
@@ -14,31 +14,31 @@ describe User do
 
     it "is invalid with empty email" do
       user.email = ""
-      expect(user.valid?).to be_falsey
+      expect(user).to_not be_valid
     end
 
     it "is invalid with empty name" do
       user.name = ""
-      expect(user.valid?).to be_falsey
+      expect(user).to_not be_valid
     end
 
     it "is invalid with empty password" do
       user.password = ""
-      expect(user.valid?).to be_falsey
+      expect(user).to_not be_valid
     end
 
     it "is valid with valid attributes" do
-      expect(user.valid?).to be_truthy
+      expect(user).to be_valid
     end
 
     it "is invalid with admin = nil" do
       user.admin = nil
-      expect(user.valid?).to be_falsey
+      expect(user).to_not be_valid
     end
 
     it "is invalid with super_admin = nil" do
       user.super_admin = nil
-      expect(user.valid?).to be_falsey
+      expect(user).to_not be_valid
     end
 
     describe "'admin/super_admin' attributes" do

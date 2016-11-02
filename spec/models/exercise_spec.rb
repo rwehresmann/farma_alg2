@@ -21,6 +21,12 @@ describe Exercise, type: :model do
       exercise.content = ""
       expect(exercise).to_not be_valid
     end
+
+    describe "'available' attribute" do
+      it "is false by default" do
+        expect(exercise.available).to be_falsey
+      end
+    end
   end
 
   describe "Relationships ->" do
