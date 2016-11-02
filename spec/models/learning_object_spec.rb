@@ -53,4 +53,19 @@ describe LearningObject do
       expect(LearningObject.reflect_on_association(:introductions).macro).to eq(:has_many)
     end
   end
+
+  describe "#pages_count" do
+    let!(:learning_object) { create(:learning_object, introductions_count: 1,
+                            exercises_count: 2) }
+
+    # available is false by default.
+    before do
+      Exercise.update_all(available: true)
+      Introduction.update_all(available: true)
+    end
+
+    it "returns 3" do
+      expect(learning_object.pages_count).to eq(3)
+    end
+  end
 end
