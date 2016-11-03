@@ -2,8 +2,6 @@ class Introduction
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  attr_accessor :id, :title, :content, :available
-
   before_create :set_position
 
   field :title, type: String
@@ -19,7 +17,7 @@ class Introduction
   default_scope -> { desc(:position) }
 
   private
-  
+
     def set_position
       self.position = Time.now.to_i
     end

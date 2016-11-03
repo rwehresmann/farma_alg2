@@ -2,8 +2,6 @@ class Question
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  attr_accessor :id, :title, :content, :available, :languages
-
   before_create :set_position
 
   field :title, type: String

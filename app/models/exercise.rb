@@ -2,8 +2,6 @@ class Exercise
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  attr_accessor :id, :title, :content, :available, :questions_attributes
-
   before_create :set_position
 
   field :title, type: String

@@ -2,8 +2,6 @@ class User
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  attr_accessor :id, :name, :email, :password, :password_confirmation, :remember_me, :guest, :teacher
-
   before_save :generate_gravatar_hash
 
   # Include default devise modules. Others available are:
