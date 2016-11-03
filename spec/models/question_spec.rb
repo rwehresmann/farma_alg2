@@ -2,10 +2,14 @@ require 'rails_helper'
 
 describe Question, type: :model do
   context "when deleted" do
-    before { create(:question, test_cases_count: 2) }
+    before { create(:question, test_cases_count: 2, last_answers_count: 2) }
 
     it "deletes associated introductions" do
       expect{ Question.first.delete }.to change{ TestCase.count }
+    end
+
+    it "deletes associated last answers" do
+      expect{ Question.first.delete }.to change{ LastAnswer.count }
     end
   end
 
