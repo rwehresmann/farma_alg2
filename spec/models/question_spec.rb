@@ -1,6 +1,14 @@
 require 'rails_helper'
 
 describe Question, type: :model do
+  context "when deleted" do
+    before { create(:question, test_cases_count: 2) }
+
+    it "deletes associated introductions" do
+      expect{ Question.first.delete }.to change{ TestCase.count }
+    end
+  end
+
   describe "Validations ->" do
     let(:question) { build(:question) }
 
@@ -24,6 +32,10 @@ describe Question, type: :model do
   describe "Relationships ->" do
     it "belongs to exercise" do
       expect(Question.reflect_on_association(:exercise).macro).to eq(:belongs_to)
+    end
+
+    it "has many test cases" do
+      expect(Question.reflect_on_association(:test_cases).macro).to eq(:has_many)
     end
   end
 
