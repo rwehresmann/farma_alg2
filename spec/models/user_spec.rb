@@ -53,6 +53,10 @@ describe User, type: :model do
     it "has many learning objects" do
       expect(User.reflect_on_association(:learning_objects).macro).to eq(:has_many)
     end
+
+    it "has and belongs to many teams" do
+      expect(User.reflect_on_association(:teams).macro).to eq(:has_and_belongs_to_many)
+    end
   end
 
   describe "#generate_gravatar_hash" do

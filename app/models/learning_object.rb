@@ -9,6 +9,7 @@ class LearningObject
   belongs_to :user
   has_many :introductions, dependent: :delete
   has_many :exercises, dependent: :delete
+  has_and_belongs_to_many :teams
 
   validates_presence_of :name, :description
   validates :name, uniqueness: true

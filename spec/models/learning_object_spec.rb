@@ -52,6 +52,10 @@ describe LearningObject do
     it "has many introductions" do
       expect(LearningObject.reflect_on_association(:introductions).macro).to eq(:has_many)
     end
+
+    it "has and belogns to many teams" do
+      expect(LearningObject.reflect_on_association(:teams).macro).to eq(:has_and_belongs_to_many)
+    end
   end
 
   describe "#pages_count" do
