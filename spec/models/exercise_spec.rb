@@ -31,7 +31,7 @@ describe Exercise, type: :model do
 
   describe "Relationships ->" do
     it "belongs to learning object" do
-      expect(Exercise.reflect_on_association(:learning_object).macro).to eq(:belongs_to)
+      expect(Exercise.reflect_on_association(:lo).macro).to eq(:belongs_to)
     end
   end
 

@@ -9,7 +9,7 @@ class Exercise
   field :available, type: Boolean, default: false
   field :position, type: Integer
 
-  belongs_to :learning_object
+  belongs_to :lo
   has_many :questions, dependent: :delete
 
   validates_presence_of :title, :content

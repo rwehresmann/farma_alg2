@@ -34,7 +34,7 @@ RSpec.describe Team, type: :model do
 
   describe "Relationships ->" do
     it "has and belongs to many exercises" do
-      expect(Team.reflect_on_association(:learning_objects).macro).to eq(:has_and_belongs_to_many)
+      expect(Team.reflect_on_association(:los).macro).to eq(:has_and_belongs_to_many)
     end
 
     it "has and belongs to many users" do

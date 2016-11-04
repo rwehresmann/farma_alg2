@@ -2,15 +2,15 @@ require 'rails_helper'
 
 describe User, type: :model do
   context "when deleted" do
-    before { create(:user, learning_objects_count: 2, last_answers_count: 2,
+    before { create(:user, los_count: 2, last_answers_count: 2,
                     recommendations_count: 2) }
 
     it "deletes associated learning objects" do
-      expect{ User.first.delete }.to change{ LearningObject.count }
+      expect{ User.first.delete }.to change{ Lo.count }
     end
 
     it "deletes associated learning objects" do
-      expect{ User.first.delete }.to change{ LastAnswer.count }
+      expect{ User.first.delete }.to change{ Lo.count }
     end
 
     it "deletes associated recommendations" do
@@ -60,7 +60,7 @@ describe User, type: :model do
 
   describe "Relationships ->" do
     it "has many learning objects" do
-      expect(User.reflect_on_association(:learning_objects).macro).to eq(:has_many)
+      expect(User.reflect_on_association(:los).macro).to eq(:has_many)
     end
 
     it "has and belongs to many teams" do

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class LearningObjectTest < ActiveSupport::TestCase
+class Lo < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

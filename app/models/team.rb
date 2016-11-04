@@ -10,7 +10,7 @@ class Team
   # So it was changed to activated.
   field :activated, type: Boolean, default: true
 
-  has_and_belongs_to_many :learning_objects
+  has_and_belongs_to_many :los
   has_and_belongs_to_many :users
 
   validates_presence_of :name, :code

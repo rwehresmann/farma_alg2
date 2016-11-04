@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :learning_object do
+  factory :lo do
     name
     description "This is the description"
     user
@@ -9,9 +9,9 @@ FactoryGirl.define do
       exercises_count 0
     end
 
-    after(:create) do |learning_object, evaluator|
-      create_list(:introduction, evaluator.introductions_count, learning_object: learning_object)
-      create_list(:exercise, evaluator.exercises_count, learning_object: learning_object)
+    after(:create) do |lo, evaluator|
+      create_list(:introduction, evaluator.introductions_count, lo: lo)
+      create_list(:exercise, evaluator.exercises_count, lo: lo)
     end
   end
 end

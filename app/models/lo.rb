@@ -1,4 +1,4 @@
-class LearningObject
+class Lo
   include Mongoid::Document
   include Mongoid::Timestamps
 

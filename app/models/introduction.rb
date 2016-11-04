@@ -9,7 +9,7 @@ class Introduction
   field :available, type: Boolean, default: false
   field :position, type: Integer
 
-  belongs_to :learning_object
+  belongs_to :lo
 
   validates_presence_of :title, :content
   #validates :available, :inclusion => {:in => [true, false]}

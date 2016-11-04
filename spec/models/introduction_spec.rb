@@ -23,7 +23,7 @@ describe Introduction, type: :model do
 
     describe "Relationships ->" do
       it "belongs to learning object" do
-        expect(Introduction.reflect_on_association(:learning_object).macro).to eq(:belongs_to)
+        expect(Introduction.reflect_on_association(:lo).macro).to eq(:belongs_to)
       end
     end
 

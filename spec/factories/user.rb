@@ -14,7 +14,7 @@ FactoryGirl.define do
 
     # Create a local variable with the number of learning objects to create.
     transient do
-      learning_objects_count 0
+      los_count 0
       last_answers_count 0
       recommendations_count 0
     end
@@ -23,7 +23,7 @@ FactoryGirl.define do
     # we would like to create learning objects (create_list 1st argument) that
     # belongs to the user created above (create_list 3th argument).
     after(:create) do |user, evaluator|
-      create_list(:learning_object, evaluator.learning_objects_count, user: user)
+      create_list(:lo, evaluator.los_count, user: user)
       create_list(:last_answer, evaluator.last_answers_count, user: user)
       create_list(:recommendation, evaluator.recommendations_count, user: user)
     end
