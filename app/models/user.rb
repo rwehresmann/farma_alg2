@@ -48,6 +48,7 @@ class User
 
   has_many :learning_objects, dependent: :delete
   has_many :last_answers, dependent: :delete
+  has_many :recommendations, dependent: :delete
   has_and_belongs_to_many :teams
 
   validates_presence_of :name

@@ -16,6 +16,7 @@ FactoryGirl.define do
     transient do
       learning_objects_count 0
       last_answers_count 0
+      recommendations_count 0
     end
 
     # Through evaluator we access the transient counter, and say that
@@ -24,6 +25,7 @@ FactoryGirl.define do
     after(:create) do |user, evaluator|
       create_list(:learning_object, evaluator.learning_objects_count, user: user)
       create_list(:last_answer, evaluator.last_answers_count, user: user)
+      create_list(:recommendation, evaluator.recommendations_count, user: user)
     end
   end
 end
