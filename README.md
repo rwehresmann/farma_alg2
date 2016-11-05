@@ -33,3 +33,4 @@ And never forget the project **purpose**! Here its a good guideline to follow:
   * In the code, english is the only language (comments, method names, variables, ...).
  
 Any problem, try to contact a contributor or open a issue.
+
