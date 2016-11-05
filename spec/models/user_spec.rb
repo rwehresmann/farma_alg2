@@ -9,10 +9,6 @@ describe User, type: :model do
       expect{ User.first.delete }.to change{ Lo.count }
     end
 
-    it "deletes associated learning objects" do
-      expect{ User.first.delete }.to change{ Lo.count }
-    end
-
     it "deletes associated recommendations" do
       expect{ User.first.delete }.to change{ Recommendation.count }
     end

@@ -41,7 +41,7 @@ class User
   field :name, :type => String
   field :gravatar
   field :admin, :type => Boolean, default: false
-  field :teacher, :type => Boolean, default: false
+  field :prof, :type => Boolean, default: false
   field :super_admin, :type => Boolean, default: false
   field :guest, :type => Boolean, default: false
   field :show_help, :type => Boolean, default: true
