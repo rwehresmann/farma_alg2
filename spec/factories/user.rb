@@ -17,6 +17,7 @@ FactoryGirl.define do
       los_count 0
       last_answers_count 0
       recommendations_count 0
+      tags_count 0
     end
 
     # Through evaluator we access the transient counter, and say that
@@ -26,6 +27,7 @@ FactoryGirl.define do
       create_list(:lo, evaluator.los_count, user: user)
       create_list(:last_answer, evaluator.last_answers_count, user: user)
       create_list(:recommendation, evaluator.recommendations_count, user: user)
+      create_list(:tag, evaluator.tags_count, user: user)
     end
   end
 end

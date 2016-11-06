@@ -49,6 +49,7 @@ class User
   has_many :los, dependent: :delete
   has_many :last_answers, dependent: :delete
   has_many :recommendations, dependent: :delete
+  has_many :tags, dependent: :delete
   has_and_belongs_to_many :teams
 
   validates_presence_of :name
@@ -58,14 +59,14 @@ class User
 
   private
 
-   # Custom validation for nil value
-   def cannot_be_nil
-     errors.add(:admin, "cannot be nil") if admin.nil?
-     errors.add(:super_admin, "cannot be nil") if super_admin.nil?
-   end
+     # Custom validation for nil value
+     def cannot_be_nil
+       errors.add(:admin, "cannot be nil") if admin.nil?
+       errors.add(:super_admin, "cannot be nil") if super_admin.nil?
+     end
 
-  # Gravatar URLs are based on an MD5 hash
-  def generate_gravatar_hash
-    self.gravatar = Digest::MD5.hexdigest(self.email)
-  end
+    # Gravatar URLs are based on an MD5 hash
+    def generate_gravatar_hash
+      self.gravatar = Digest::MD5.hexdigest(self.email)
+    end
 end

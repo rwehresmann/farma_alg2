@@ -3,7 +3,7 @@ require 'rails_helper'
 describe User, type: :model do
   context "when deleted" do
     before { create(:user, los_count: 2, last_answers_count: 2,
-                    recommendations_count: 2) }
+                    recommendations_count: 2, tags_count: 2) }
 
     it "deletes associated learning objects" do
       expect{ User.first.delete }.to change{ Lo.count }
@@ -11,6 +11,10 @@ describe User, type: :model do
 
     it "deletes associated recommendations" do
       expect{ User.first.delete }.to change{ Recommendation.count }
+    end
+
+    it "deletes associated tags" do
+      expect{ User.first.delete }.to change{ Tag.count }
     end
   end
 
@@ -69,6 +73,10 @@ describe User, type: :model do
 
     it "has many recommendations" do
       expect(User.reflect_on_association(:recommendations).macro).to eq(:has_many)
+    end
+
+    it "has many tags" do
+      expect(User.reflect_on_association(:tags).macro).to eq(:has_many)
     end
   end
 
