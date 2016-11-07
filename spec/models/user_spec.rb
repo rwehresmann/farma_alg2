@@ -88,9 +88,20 @@ describe User, type: :model do
     end
   end
 
+  describe "#add_team" do
+    let(:user) { create(:user) }
+    before { user.add_team(create(:team)) }
+
+    it "adds a team to user" do
+      expect(user.teams.count).to eq(1)
+    end
+  end
+
   describe "#all_teams" do
     let(:user) { create(:user) }
 
+    # Create three teams, make the user owner of the first and a participant
+    # of the last.
     before do
       3.times { create(:team) }
       Team.first.update_attributes(owner_id: user.id)
