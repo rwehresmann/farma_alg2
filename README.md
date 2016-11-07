@@ -11,9 +11,12 @@ Reimplementation of [FARMA-ALG](https://rodrigo_ehresmann@bitbucket.org/rodrigo_
 
 Everything to keep the project simple and easy to understand.
 
-## Current state
+## Usage
 
-Focusing in the models and helpers reimplementation.
+  * Clone the repo;
+  * run `bundle install`;
+  * Intall Free Pascal Compiler (`sudo apt-get install -y fpc`). It is necessary because some tests call a bash script and compile right and wrong Pascal source codes;
+  * Run `rspec`. If none test fails, you are ready to start.
 
 ## Whant to contribute?
 
