@@ -87,4 +87,29 @@ describe User, type: :model do
       expect(user.gravatar).to eq(Digest::MD5.hexdigest(user.email))
     end
   end
+
+  describe "#all_teams" do
+    let(:user) { create(:user) }
+
+    before do
+      3.times { create(:team) }
+      Team.first.update_attributes(owner_id: user.id)
+      user.add_team(Team.last)
+    end
+
+    context "when user is admin" do
+      before { user.update_attributes(admin: true) }
+
+      it "returns all teams" do
+        expect(user.all_teams).to eq(Team.all.asc(:name).to_a)
+      end
+    end
+
+    context "when user is not admin" do
+      it "return only the teams where the user is the owner and he belongs" do
+        teams = Team.where(owner_id: user.id).asc('name').to_a + user.teams
+        expect(user.all_teams).to eq(teams)
+      end
+    end
+  end
 end

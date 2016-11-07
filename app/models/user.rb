@@ -57,6 +57,21 @@ class User
 
   index({ email: 1 }, { unique: true, background: true })
 
+
+  # Return teams according user privilege level.
+  def all_teams
+    if admin?
+      Team.all.asc(:name).to_a
+    else
+      Team.where(owner_id: id).asc('name').to_a + teams.asc('name')
+    end
+  end
+
+  def add_team(team)
+    teams << team
+    save
+  end
+
   private
 
      # Custom validation for nil value
