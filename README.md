@@ -1,6 +1,6 @@
 # DESCRIPTION
 
-Reimplementation of [FARMA-ALG](https://rodrigo_ehresmann@bitbucket.org/rodrigo_ehresmann/farma_alg.git) originally developed by [Alex Kutzke](https://github.com/alexkutzke).
+Reimplementation of [FARMA-ALG](https://github.com/alexkutzke/farma_alg) originally developed by [Alex Kutzke](https://github.com/alexkutzke).
 
 ## Purpose
 
@@ -9,7 +9,7 @@ Reimplementation of [FARMA-ALG](https://rodrigo_ehresmann@bitbucket.org/rodrigo_
   * Test coverage;
   * Code refactor.
 
-Everything to keep the project simple and easy to understand.
+Everything to promove long-term maintability and keep the project simple and easy to understand.
 
 ## Usage
 
