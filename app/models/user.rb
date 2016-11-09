@@ -63,13 +63,34 @@ class User
     if admin?
       Team.all.asc(:name).to_a
     else
+      # Q: shoul i realy put teams.asc('name')? That isn't right, according
+      # other methods like 'all_teams_id'.
       Team.where(owner_id: id).asc('name').to_a + teams.asc('name')
+    end
+  end
+
+  # Return teams id according user privilege level.
+  def all_teams_id
+    if admin?
+      Team.all.pluck(:id)
+    else
+      Team.where(owner_id: id).pluck(:id)
+    end
+  end
+
+  # Return users according privilege level. 
+  def all_students
+    if admin?
+      User.all.asc(:name).to_a
+    else
+      user_teams = Team.where(owner_id: id).asc('name').to_a
+      users = user_teams.each.inject([self]) { |array, team| array = array + team.users }
+      users.uniq.sort_by(&:name)
     end
   end
 
   def add_team(team)
     teams << team
-    save
   end
 
   private

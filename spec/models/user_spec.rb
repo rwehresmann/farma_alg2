@@ -106,6 +106,7 @@ describe User, type: :model do
       3.times { create(:team) }
       Team.first.update_attributes(owner_id: user.id)
       user.add_team(Team.last)
+      user.reload
     end
 
     context "when user is admin" do
@@ -120,6 +121,72 @@ describe User, type: :model do
       it "return only the teams where the user is the owner and he belongs" do
         teams = Team.where(owner_id: user.id).asc('name').to_a + user.teams
         expect(user.all_teams).to eq(teams)
+      end
+    end
+  end
+
+  describe "#all_teams_id" do
+    let(:user) { create(:user) }
+
+    # Create three teams, make the user owner of the first and a participant
+    # of the last.
+    before do
+      3.times { create(:team) }
+      Team.first.update_attributes(owner_id: user.id)
+    end
+
+    context "when user is admin" do
+      before { user.update_attributes(admin: true) }
+
+      it "returns all teams id" do
+        expect(user.all_teams_id).to eq(Team.all.pluck(:id))
+      end
+    end
+
+    context "when user is not admin" do
+      it "return only the teams where the user is the owner" do
+        teams = Team.where(owner_id: user.id).pluck(:id)
+        expect(user.all_teams_id).to eq(teams)
+      end
+    end
+  end
+
+  describe "#all_students" do
+    let(:user) { create(:user) }
+
+    # Create two teams and make the main user owner of the first. Create two
+    # new users and add to the first team. Create one more user, and add it to
+    # the second team.
+    before do
+      2.times { create(:team) }
+      Team.first.update_attributes(owner_id: user.id)
+
+      2.times do
+        new_user = create(:user)
+        Team.first.add_user(new_user)
+      end
+
+      new_user = create(:user)
+      Team.last.add_user(new_user)
+    end
+
+    context "when user is admin" do
+      before { user.update_attributes(admin: true) }
+
+      it "returns all users" do
+        expect(user.all_students).to eq(User.all.asc(:name).to_a)
+      end
+    end
+
+    context "when user is not admin" do
+      subject do
+        user_teams = Team.where(owner_id: user.id).asc('name').to_a
+        @users = user_teams.each.inject([user]) { |array, team| array = array + team.users }
+        @user = @users.uniq.sort_by(&:name)
+      end
+
+      it "returns only the user itself and the users from the team were he is th owner" do
+        expect(subject).to eq(user.all_students)
       end
     end
   end

@@ -21,4 +21,8 @@ class Team
     return all.desc(:created_at) if search.empty?
     any_of(:name => search).desc(:created_at)
   end
+
+  def add_user(user)
+    users << user
+  end
 end
