@@ -155,8 +155,9 @@ describe User, type: :model do
     let(:user) { create(:user) }
 
     # Create two teams and make the main user owner of the first. Create two
-    # new users and add to the first team. Create one more user, and add it to
-    # the second team.
+    # new users and add to the first team. Update the name of the last created
+    # user to "Alice", to test the ascendent ordenation. Create one more user,
+    # and add it to the second team.
     before do
       2.times { create(:team) }
       Team.first.update_attributes(owner_id: user.id)
@@ -165,6 +166,7 @@ describe User, type: :model do
         new_user = create(:user)
         Team.first.add_user(new_user)
       end
+      User.last.update_attributes(name: "Alice")
 
       new_user = create(:user)
       Team.last.add_user(new_user)
@@ -179,14 +181,8 @@ describe User, type: :model do
     end
 
     context "when user is not admin" do
-      subject do
-        user_teams = Team.where(owner_id: user.id).asc('name').to_a
-        @users = user_teams.each.inject([user]) { |array, team| array = array + team.users }
-        @user = @users.uniq.sort_by(&:name)
-      end
-
       it "returns only the user itself and the users from the team were he is th owner" do
-        expect(subject).to eq(user.all_students)
+        expect(user.all_students).to eq([User.all[2], User.all[0], User.all[1]])
       end
     end
   end
