@@ -1,6 +1,6 @@
 # DESCRIPTION
 
-Reimplementation of [FARMA-ALG](https://rodrigo_ehresmann@bitbucket.org/rodrigo_ehresmann/farma_alg.git) originally developed by [Alex Kutzke](https://github.com/alexkutzke).
+Reimplementation of [FARMA-ALG](https://github.com/alexkutzke/farma_alg) originally developed by [Alex Kutzke](https://github.com/alexkutzke).
 
 ## Purpose
 
@@ -9,11 +9,14 @@ Reimplementation of [FARMA-ALG](https://rodrigo_ehresmann@bitbucket.org/rodrigo_
   * Test coverage;
   * Code refactor.
 
-Everything to keep the project simple and easy to understand.
+Everything to promove long-term maintability and keep the project simple and easy to understand.
 
-## Current state
+## Usage
 
-Focusing in the models and helpers reimplementation.
+  * Clone the repo;
+  * run `bundle install`;
+  * Intall Free Pascal Compiler (`sudo apt-get install -y fpc`). It is necessary because some tests call a bash script and compile right and wrong Pascal source codes;
+  * Run `rspec`. If none test fails, you are ready to start.
 
 ## Whant to contribute?
 
