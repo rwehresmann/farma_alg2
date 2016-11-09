@@ -14,4 +14,15 @@ RSpec.describe Tag, type: :model do
       expect(Tag.reflect_on_association(:user).macro).to eq(:belongs_to)
     end
   end
+
+  describe ".all_tags" do
+    before do
+      3.times { create(:tag) }
+      Tag.last.update_attributes(name: "A error")
+    end
+
+    it "returns teh tags ordered by their names" do
+      expect(Tag.all_tags).to eq(Tag.order_by(name: :asc))
+    end
+  end
 end

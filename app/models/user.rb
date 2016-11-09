@@ -78,7 +78,7 @@ class User
     end
   end
 
-  # Return users according privilege level. 
+  # Return users according privilege level.
   def all_students
     if admin?
       User.all.asc(:name).to_a
@@ -89,6 +89,7 @@ class User
     end
   end
 
+  # Add the user to a team.
   def add_team(team)
     teams << team
   end

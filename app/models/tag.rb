@@ -9,4 +9,9 @@ class Tag
 
   belongs_to :user
   # has_and_belongs_to_many :answers
+
+  # Return all tags
+  def self.all_tags
+    Tag.all.asc(:name)
+  end
 end
