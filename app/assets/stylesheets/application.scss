@@ -22,31 +22,33 @@
 
 @import url('https://fonts.googleapis.com/css?family=Dosis:300,600');
 
+//$color1: #0c060f;
+//$color2: #191409;
+//$color3: #0c231b;
+//$color4: #0e2d23;
+//$color5: #11372a;
+
 $footer_height_max: 35px;
 $footer_height_min: -35px;
 
-.wrapper {
-	min-height: 100%;
-	margin: 0 auto $footer_height_min; /* the bottom margin is the negative value of the footer's height */
-}
-
 body {
   height: 100%;
-  background-color: lightgray; /*#f2f2f2;*/
+  background-color: lightgrey;
   font-family: 'Dosis', sans-serif;
   font-weight: bold;
   font-size: 16px;
   line-height: 1.6em;
-  margin: 0 0 0 0;
-}
-
-a {
-  color: white;
 }
 
 a.navbar-brand {
-  color: #fff !important;
+  color: white !important;
   text-transform: uppercase;
+}
+
+// Used to create a sticky footer.
+.wrapper {
+	min-height: 100%;
+	margin: 0 auto $footer_height_min; /* the bottom margin is the negative value of the footer's height */
 }
 
 .btn-block{
@@ -64,13 +66,17 @@ footer {
   height: $footer_height_max;
   font-size: 12px;
   background: gray;
+
+  a {
+    color: white;
+  }
+
+  .push {
+  	height: $footer_height_max; /* .push must be the same height as .footer */
+  }
 }
 
-.footer.push {
-	height: $footer_height_max; /* .push must be the same height as .footer */
-}
-
-p.copyright {
-	color: #fff;
+.copyright {
+	color: white;
 	text-align: center;
 }
