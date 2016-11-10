@@ -33,7 +33,7 @@ And never forget the project **purpose**! Here its a good guideline to follow:
   * Before put your efforts in the reimplementation of some method, take a look if it's used somewhere;
   * A functionality is complex? Try make it simple. Still complex? Be sure to add a comment to help to understand what is happening;
   * Try give self-explanatory names to local variables;
-  * In the code, english is the only language (comments, method names, variables, ...).
+  * In the code, english is the only language (method names, variables, tables, ...).
  
 Any problem, try to contact a contributor or open a issue.
 
