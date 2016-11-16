@@ -6,10 +6,14 @@
     </div>
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
-        <li><%= link_to "Entrar", new_user_session_path %></li>
-        <li><%= link_to "Registrar-se", new_user_registration_path %></li>
-        <li><a href="http://www.br-ie.org/pub/index.php/sbie/article/view/3005">Saiba mais</a></li>
+        <% if user_signed_in? %>
+          <li><%= link_to "Sair", destroy_user_session_path, method: :delete %></li>
+        <% else %>
+          <li><%= link_to "Entrar", new_user_session_path %></li>
+          <li><%= link_to "Registrar-se", new_user_registration_path %></li>
+          <li><a href="http://www.br-ie.org/pub/index.php/sbie/article/view/3005">Saiba mais</a></li>
+        <% end %>
       </ul>
-    </div><!--/.nav-collapse -->
+    </div>
   </div>
 </div>
