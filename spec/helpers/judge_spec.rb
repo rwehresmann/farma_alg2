@@ -5,6 +5,7 @@ describe Judge do
   describe ".save_source_code" do
     let(:filename) { "/tmp/id-response.lang" }
     let(:source_code) { "program Hello; begin writeln ('Hello, world.') end." }
+    before { Judge.save_source_code(filename, source_code) }
 
     it "saves a file with the source code" do
       expect(File.exist?(filename)).to be_truthy
