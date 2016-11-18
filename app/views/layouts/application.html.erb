@@ -11,10 +11,12 @@
 
   <body>
     <%= render 'shared/header' %>
+
     <div class="wrapper">
       <%= yield %>
-      <div class="push"></div>
     </div>
+    <div class="push"></div>
+
     <%= render 'shared/footer' %>
   </body>
 </html>

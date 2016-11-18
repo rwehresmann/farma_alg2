@@ -1,9 +1,37 @@
-<div class="container image-background">
-  <div class="row">
-    <div class="presentation col-lg-6">
-      <h1 id="welcome_title">FARMA-ALG <small style="color: white;"><%= @subdomain %></small></h1>
-			<h2 class="welcome_subtitle"><b>Crie</b> e <b>disponibilize</b> objetos de aprendizagem para o ensino de programação de computadores.</h2>
-      <h2 class="welcome_subtitle"><b>Manipule</b>, <b>classifique</b> e <b>entenda</b> as relações entre as repostas de seus alunos.</h2>
+<div class="row presentation">
+  <div class="col-lg-6">
+    <h1>FARMA-ALG <small style="color: white;"><%= @subdomain %></small></h1>
+		<h2><b>Crie</b> e <b>disponibilize</b> objetos de aprendizagem para o ensino de programação de computadores.</h2>
+    <h2><b>Manipule</b>, <b>classifique</b> e <b>entenda</b> as relações entre as repostas de seus alunos.</h2>
+  </div>
+
+  <div class="col-lg-6">
+    <div class="slider">
+      <div class="ssslide">
+        <%= image_tag("samples/slide1.png") %>
+        <h2 class="text-center">Manipulações das respostas</h2>
+      </div>
+      <div class="ssslide">
+        <%= image_tag("samples/slide2.png") %>
+        <h2 class="text-center">Recomendações automáticas para análise de respostas relevantes</h2>
+      </div>
+      <div class="ssslide">
+        <%= image_tag("samples/slide3.png") %>
+        <h2 class="text-center">Diferentes visualizações das respostas</h2>
+      </div>
     </div>
   </div>
 </div>
+
+<script text="text/>JavaScript">
+  $(document).ready(function(){
+    $('body').addClass('background-image');
+    $('.slider').sss({
+      slideShow : true, // Set to false to prevent SSS from automatically animating.
+      startOn : 0, // Slide to display first. Uses array notation (0 = first slide).
+      transition : 400, // Length (in milliseconds) of the fade transition.
+      speed : 3500, // Slideshow speed in milliseconds.
+      showNav : true // Set to false to hide navigation arrows.
+    });
+  });
+</script>

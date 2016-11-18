@@ -1,0 +1,201 @@
+@import "bootstrap";
+@import url('https://fonts.googleapis.com/css?family=Dosis:300,600');
+
+/*
+
+CSS organization:
+
+- Use "//" to add comment explnation;
+- Use "/asterisk asterisc/" to indicate that the following belongs to a
+  specific layout piece;
+- CSS for general use go in /asterics general asterisc/.
+
+*/
+
+$footer_height_max: 35px;
+$footer_height_min: -35px;
+
+/* General */
+
+body, html {
+  height: 100%;
+}
+
+body {
+  background-color: lightgrey;
+  font-family: 'Dosis', sans-serif;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 1.6em;
+}
+
+.container {
+   max-width: 1128px;
+   margin: 0 auto;
+}
+
+.clearfix:before,
+.clearfix:after {
+   content: " ";
+   display: table;
+}
+
+.clearfix:after {
+   clear: both;
+}
+
+.clearfix {
+   *zoom: 1;
+}
+
+// Take in account only the specified height and width,
+// ignoring border and padding
+*, *:before, *:after {
+   -webkit-box-sizing: border-box;
+   -moz-box-sizing: border-box;
+   box-sizing: border-box;
+}
+
+// Image used in home page.
+.background-image {
+  background: image-url('welcome-bg.jpg') no-repeat;
+  background-size: cover;
+}
+
+// Used to create a sticky footer.
+.wrapper {
+	min-height: 100%;
+	margin: 0 auto $footer_height_min; /* the bottom margin is the negative value of the footer's height */
+}
+
+.btn-block{
+  font-weight: bold;
+}
+
+// Devise links.
+.links a {
+  font-weight: bold;
+  color: black;
+}
+
+/* Header */
+
+.navbar-brand {
+  color: white !important;
+  text-transform: uppercase;
+}
+
+/* Footer */
+
+footer {
+  height: $footer_height_max;
+  font-size: 12px;
+  background: gray;
+
+  a {
+    color: white;
+  }
+
+  .push {
+  	height: $footer_height_max; /* .push must be the same height as .footer */
+  }
+}
+
+.copyright {
+	color: white;
+	text-align: center;
+}
+
+/* FARMA-ALG presentation in home page */
+
+.presentation {
+	letter-spacing: -1px;
+  padding-top: 100px;
+  padding-left: 50px;
+  h2 {
+    color: #fff;
+  	font-size: 20px;
+    b {
+      color: #d6ee18;
+    }
+  }
+  h1 {
+    font-size: 45px;
+  	font-weight: bold;
+  	color: white;
+  }
+}
+
+/* Super Simple Slider */
+
+.sss {
+	height: 0;
+	margin: 0;
+	padding: 0;
+	position: relative;
+	display: block;
+	overflow: hidden;
+}
+
+.ssslide {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: none;
+	overflow: hidden;
+}
+
+.ssslide img {
+	max-width: 100%;
+	height: auto;
+	margin: 0;
+	padding: 0;
+	position: relative;
+	display: block;
+}
+
+.sssnext, .sssprev {
+	width: 25px;
+	height: 100%;
+	margin: 0;
+	position: absolute;
+	top: 0;
+	background: url('arr.png') no-repeat;
+}
+
+.sssprev {
+	left: 3%;
+	background-position: 0 50%;
+}
+
+.sssnext {
+	right: 3%;
+	background-position: -26px 50%;
+}
+
+.sssprev:hover, .sssnext:hover {
+	cursor: pointer;
+}
+
+.slider {
+  width: 600px;
+  height: 400px;
+}
+
+/* Use media querie to adapt the css to others screen sizes!
+
+@media screen and (max-width: 1128px) {
+.container {
+   padding: 0 2.4em 0 2.4em;
+}
+
+  .slider {
+    width: 300px;
+    height: 200px;
+  }
+}
+
+*/

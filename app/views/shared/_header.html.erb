@@ -1,10 +1,19 @@
-<!-- Fixed navbar -->
-<div class="navbar navbar-inverse navbar-fixed-top">
+<div class="navbar navbar-inverse ">
   <div class="container">
-    <div class="navbar-header">
+    <!-- Turbolinks is desabled below because it doesn't reload the javascript
+         when is active. In this specific case we need this functionality 
+         because the super simple slider. For now, this is a provisory
+         solution. -->
+    <div class="navbar-header", data-turbolinks="false">
       <%= link_to "farma-alg #{@subdomain}", root_path, class: "navbar-brand" %>
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+        <% 3.times do %>
+          <span class="icon-bar"></span>
+        <% end %>
+      </button>
     </div>
-    <div class="navbar-collapse collapse">
+
+    <div id="navbar" class="collapse navbar-collapse">
       <ul class="nav navbar-nav navbar-right">
         <% if user_signed_in? %>
           <li><%= link_to "Sair", destroy_user_session_path, method: :delete %></li>
