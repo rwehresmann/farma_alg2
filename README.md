@@ -30,7 +30,7 @@ Good! Follow these steps:
 And never forget the project **purpose**! Here its a good guideline to follow:
 
   * Almost everithing is tested (and never forget to run the test suite);
-  * Before put your efforts in the reimplementation of some method, take a look if it's used somewhere;
+  * Before put your efforts in the reimplementation of some method, take a look if is used somewhere;
   * A functionality is complex? Try make it simple. Still complex? Be sure to add a comment to help to understand what is happening;
   * Try give self-explanatory names to local variables;
   * In the code, english is the only language (method names, variables, tables, ...).
