@@ -14,9 +14,7 @@
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require jquery_ujs
-// Added because adminlte-rails gem:''
-//= require bootstrap.min
-//= require admin-lte
-// --------------------------------
+//= require AdminLTE/bootstrap
+//= require AdminLTE/AdminLTE/app
 //= require_tree ./super_simple_slider
 //= require_tree .

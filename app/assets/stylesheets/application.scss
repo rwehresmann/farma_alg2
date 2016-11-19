@@ -9,12 +9,7 @@
  * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
- * Added because adminlte-rails gem:
- *= require font-awesome
- *= require ionicons
- *= require admin-lte
- *= require iCheck/all
- *= require datatables/dataTables.bootstrap
- * ----------------------------------------
+ *= require AdminLTE/bootstrap
+ *= require AdminLTE/AdminLTE
  *= require custom
- */
+*/
