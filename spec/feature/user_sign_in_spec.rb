@@ -13,7 +13,7 @@ describe "User sign in", type: :feature do
     end
 
     it "redirects to root path" do
-      expect(page).to have_current_path(root_path)
+      expect(page).to have_current_path(authenticated_root_path)
     end
   end
 
