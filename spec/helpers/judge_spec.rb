@@ -18,9 +18,8 @@ describe Judge do
       let(:source_code_wrong) { "program Hello; begin weln ('Hello, world.') end." }
       subject { Judge.compile("pas", source_code_wrong, 1) }
 
-      it "returns an array where the first elements is 1" do
-        expect(subject.class).to eq(Array)
-        expect(subject.first).to eq(1)
+      it "returns status 1" do
+        expect(subject[:status]).to eq(1)
       end
     end
 
@@ -28,9 +27,8 @@ describe Judge do
       let(:source_code_wrigth) { "program Hello; begin writeln ('Hello, world.') end." }
       subject { Judge.compile("pas", source_code_wrigth, 1) }
 
-      it "returns an array where the first elements is 0" do
-        expect(subject.class).to eq(Array)
-        expect(subject.first).to eq(0)
+      it "returns status 0" do
+        expect(subject[:status]).to eq(0)
       end
     end
   end
