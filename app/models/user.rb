@@ -61,6 +61,21 @@ class User
 
   index({ email: 1 }, { unique: true, background: true })
 
+  def last_messages_to_me(n)
+    @messages = Message.any_of({:target_user_ids => self.id}, {:user_ids => self.id.to_s}).desc(:updated_at).desc(:updated_at).to_a + self.messages.keep_if {|x| x['new_flag_user_id'] }
+    @messages.sort { |x,y| y.updated_at <=> x.updated_at}
+  end
+
+  def number_of_new_messages
+    Message.any_of(:new_flag_user_ids => self.id).count + self.messages.keep_if {|x| x['new_flag_user_id'] }.count
+  end
+
+  def student?
+    if self.prof? && (not self.admin?)
+      return false
+    end
+    return true
+  end
 
   # Return teams according user privilege level.
   def all_teams

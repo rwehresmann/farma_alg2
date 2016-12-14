@@ -183,6 +183,363 @@ footer {
   height: 400px;
 }
 
+/* Dashboard */
+
+.shorted-box-body
+{
+  max-height: 200px;
+  overflow: hidden;
+}
+
+.shorted-box-footer
+{
+  background-color: lightyellow !important;
+  border-top: 1px solid lightgray !important;
+  padding: 2px !important;
+}
+
+.shorted-box-footer:hover
+{
+  background-color: rgb(231, 231, 200) !important;
+}
+
+.wrapper
+{
+  background: lightgray;
+}
+
+section.content
+{
+  background: lightgray;
+}
+
+.btn-block
+{
+  margin-top:5px;
+}
+
+.small-box-footer
+{
+  height:25px;
+}
+
+#cal-heatmap
+{
+  overflow-x:hidden;
+}
+
+svg.graph
+{
+  margin:10px auto;
+}
+
+.answer-label
+{
+  margin: 10px 2px;
+}
+.right-side-button
+{
+  position: fixed;
+  top: 200px;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 10px 15px;
+  font-size: 16px;
+  z-index: 999998;
+  cursor: pointer;
+  color: #ddd;
+}
+
+.right-side-body
+{
+  position: fixed;
+  top: 120px;
+  background: rgba(0, 0, 0, 0.7);
+  border: 1px solid black;
+  font-size: 16px;
+  z-index: 999998;
+  max-height: 80%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.search-bar
+{
+  -webkit-box-shadow: 0px 0px 18px 0px rgba(50, 50, 50, 0.73);
+  -moz-box-shadow:    0px 0px 18px 0px rgba(50, 50, 50, 0.73);
+  box-shadow:         0px 0px 18px 0px rgba(50, 50, 50, 0.73);
+}
+
+#toolbar
+{
+  background-color: transparent;
+}
+
+.toolbar-btn-label
+{
+  position: absolute;
+  top: 0;
+  width: 0px;
+  left: 49px;
+  overflow-x:hidden;
+}
+
+.toolbar-btn-label .input-group-addon
+{
+  border: 1px solid #cccccc;
+}
+
+.toolbar-btn
+{
+  z-index: 100;
+  position: absolute;
+  top: 0;
+  float: inherit;
+  left: 14px;
+}
+
+.toolbar-btn i.fa
+{
+  width:30px;
+}
+
+.toolbar-btn-element
+{
+  position: absolute;
+  top: 0;
+  width: 0px;
+  left: 49px;
+  overflow-x:hidden;
+  pointer-events:none;
+}
+
+#search-result-container
+{
+  margin-left: 24px;
+  margin-right: 124px;
+  pointer-events: initial;
+}
+
+#graph
+{
+  position:absolute;
+  z-index:0;
+  background-color: rgb(223,223,223);
+}
+
+#graph-search-result
+{
+  background-color:white;
+  height:400px;
+  overflow-y:auto;
+  border: 1px solid gray;
+}
+
+#graph svg
+{
+  height: 100%;
+  width: 100%;
+}
+
+#answer-info
+{
+  position: absolute;
+  right: 10px;
+  overflow-y: hidden;
+  pointer-events:none;
+}
+
+#answer-show
+{
+  position: fixed;
+  left: 10px;
+  top: 10px;
+  overflow-y: auto;
+  pointer-events:none;
+  z-index: 1032;
+  max-width:400px;
+-webkit-box-shadow: 0px 0px 30px 0px rgba(50, 50, 50, 0.73);
+-moz-box-shadow:    0px 0px 30px 0px rgba(50, 50, 50, 0.73);
+box-shadow:         0px 0px 30px 0px rgba(50, 50, 50, 0.73);
+}
+
+#box-answer-info
+{
+  pointer-events:initial;
+  margin:0;
+}
+
+#box-answer-info .box-body
+{
+ overflow-y: auto;
+ overflow-x: hidden;
+}
+
+.modal
+{
+  pointer-events:initial;
+}
+
+.modal.fade
+{
+  top:0;
+}
+
+.modal.fade.in
+{
+  top: 0;
+}
+
+.my-modal
+{
+  width:90%;
+}
+
+.modal-backdrop
+{
+  z-index: 1031;
+}
+
+.time-btn
+{
+  cursor:pointer;
+}
+
+.time-btn:hover
+{
+ -webkit-box-shadow: 0px 0px 30px 0px rgba(50, 50, 50, 0.73) !important;
+  -moz-box-shadow:    0px 0px 30px 0px rgba(50, 50, 50, 0.73) !important;
+  box-shadow:         0px 0px 30px 0px rgba(50, 50, 50, 0.73) !important;
+}
+
+.timeline hr
+{
+border: 2px solid white;
+margin-top: 12px;
+margin-left: 33px;
+width: 50px;
+position:absolute;
+}
+
+.time-comparison
+{
+  margin-left: 120px !important;
+}
+/*
+margin-top: -25px !important;
+margin-left: auto !important;
+margin-right: auto !important;
+width: 50%;
+}
+*/
+i.comparison{
+  left:80px !important;
+}
+
+.row_inner_shadow
+{
+  -webkit-box-shadow: inset 0px 0px 18px -2px rgba(50, 50, 50, 1);
+  -moz-box-shadow:    inset 0px 0px 18px -2px rgba(50, 50, 50, 1);
+  box-shadow:         inset 0px 0px 18px -2px rgba(50, 50, 50, 1);
+  display:none;
+  background-color: darkgrey;
+}
+
+.top_bottom_borders
+{
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+.inner-results
+{
+  max-height: 300px;
+  overflow: auto;
+}
+
+.ui-autocomplete
+{
+  z-index: 999999999998;
+}
+
+.small-box .icon
+{
+  font-size: 75px;
+}
+
+/* ================================================================
+ * PACE
+ * ================================================================ */
+.pace {
+  -webkit-pointer-events: none;
+  pointer-events: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+.pace .pace-activity {
+  display: block;
+  position: fixed;
+  z-index: 2000;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 300px;
+  background: #29d;
+  -webkit-transition: -webkit-transform 0.3s;
+  transition: transform 0.3s;
+  -webkit-transform: translateX(100%) translateY(-100%) rotate(45deg);
+  transform: translateX(100%) translateY(-100%) rotate(45deg);
+  pointer-events: none;
+}
+
+.pace.pace-active .pace-activity {
+  -webkit-transform: translateX(50%) translateY(-50%) rotate(45deg);
+  transform: translateX(50%) translateY(-50%) rotate(45deg);
+}
+
+.pace .pace-activity::before,
+.pace .pace-activity::after {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    display: block;
+    border: 5px solid #fff;
+    border-radius: 50%;
+    content: '';
+}
+
+.pace .pace-activity::before {
+    margin-left: -40px;
+    width: 80px;
+    height: 80px;
+    border-right-color: rgba(0, 0, 0, .2);
+    border-left-color: rgba(0, 0, 0, .2);
+    -webkit-animation: pace-rotation 3s linear infinite;
+    animation: pace-rotation 3s linear infinite;
+}
+
+.pace .pace-activity::after {
+    bottom: 50px;
+    margin-left: -20px;
+    width: 40px;
+    height: 40px;
+    border-top-color: rgba(0, 0, 0, .2);
+    border-bottom-color: rgba(0, 0, 0, .2);
+    -webkit-animation: pace-rotation 1s linear infinite;
+    animation: pace-rotation 1s linear infinite;
+}
+
+@-webkit-keyframes pace-rotation {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(359deg); }
+}
+@keyframes pace-rotation {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(359deg); }
+}
+
 /* Use media querie to adapt the css to others screen sizes!
 
 @media screen and (max-width: 1128px) {
