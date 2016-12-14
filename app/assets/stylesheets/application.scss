@@ -12,5 +12,12 @@
  *= require AdminLTE/bootstrap
  *= require AdminLTE/AdminLTE
  *= require custom
- 
+ *= require diffview
+ * require jquery-ui
+ * require bootstrap-modal
+ *= require AdminLTE/font-awesome
+ *= require AdminLTE/ionicons
+ *= require AdminLTE/morris/morris
+ *= require AdminLTE/daterangepicker/daterangepicker-bs3
+ *= require AdminLTE/timepicker/bootstrap-timepicker.min
 */

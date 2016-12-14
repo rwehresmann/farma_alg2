@@ -2,9 +2,9 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_filter :authenticate_user!
-  before_filter :get_messages
-  before_filter :get_subdomain
+  # before_action :authenticate_user!
+  before_action :get_messages
+  before_action :get_subdomain
 
   def render_401
     render :file => "public/401.html", :status => :unauthorized
@@ -67,9 +67,9 @@ class ApplicationController < ActionController::Base
     end
 
     # Devise method overrided to change the redirect after sign in.
-    def after_sign_in_path_for(resource)
-      authenticated_root_path
-    end
+    # def after_sign_in_path_for(resource)
+    #  authenticated_root_path
+    # end
 
     def create_guest_user
       u = User.create(name: "Guest", email: "guest_#{Time.now.to_i}#{rand(99)}@example.com", guest: true)

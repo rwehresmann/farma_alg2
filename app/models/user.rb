@@ -61,6 +61,54 @@ class User
 
   index({ email: 1 }, { unique: true, background: true })
 
+  def all_los
+    if self.admin?
+      Lo.all.asc(:name)
+    else
+      los = Array.new
+      for team in self.all_teams do
+        lo_ids = Answer.where(team_id:team.id).desc("lo_id").distinct("lo_id")
+        if lo_ids.empty?
+          los = los + team.los
+        else
+          los = los + (Lo.find(lo_ids) | team.los)
+        end
+      end
+
+      if self.prof?
+        los += self.los
+      end
+
+      los.uniq{|x| x.id}.sort_by{:name}
+    end
+  end
+
+  def all_tags
+    Tag.all.asc(:name)
+  end
+
+  def all_questions
+    if self.admin?
+      Question.all.asc(:title)
+    else
+      answered_questions = Answer.where(user_id:self.id).desc("question_id").distinct("question_id")
+      questions = []
+      unless answered_questions.empty?
+        questions = Question.find(answered_questions)
+      end
+
+      question_ids = []
+      for lo in self.all_los
+        for ex in lo.exercises
+          question_ids = question_ids + ex.question_ids
+        end
+      end
+
+      questions = questions + Question.find(question_ids)
+      questions.uniq{|x| x.id}.sort_by{|x| x.title}
+    end
+  end
+
   def last_messages_to_me(n)
     @messages = Message.any_of({:target_user_ids => self.id}, {:user_ids => self.id.to_s}).desc(:updated_at).desc(:updated_at).to_a + self.messages.keep_if {|x| x['new_flag_user_id'] }
     @messages.sort { |x,y| y.updated_at <=> x.updated_at}

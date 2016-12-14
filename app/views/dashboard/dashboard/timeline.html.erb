@@ -1,0 +1,67 @@
+<%= content_for :scripts do %>
+    <%= javascript_include_tag 'dashboard/resizeApp' %>
+    <%= javascript_include_tag 'difflib' %>
+    <%= javascript_include_tag 'diffview' %>
+    <%= javascript_include_tag 'dashboard/tags' %>
+
+
+  <script type="text/javascript">
+  var graph=null;
+  function diffUsingJS(div_id,label1,txt1,label2,txt2){
+    // get the baseText and newText values from the two textboxes, and split them into lines
+    base = difflib.stringAsLines(txt1);//$("baseText").value);
+    newtxt = difflib.stringAsLines(txt2);//$("newText").value);
+
+    //create a SequenceMatcher instance that diffs the two sets of lines
+    sm = new difflib.SequenceMatcher(base, newtxt);
+
+    // get the opcodes from the SequenceMatcher instance
+    // opcodes is a list of 3-tuples describing what changes should be made to the base text
+    // in order to yield the new text
+    opcodes = sm.get_opcodes();
+    diffoutputdiv = $("#"+div_id);
+    while(diffoutputdiv.firstChild)
+      diffoutputdiv.removeChild(diffoutputdiv.firstChild);
+
+    //console.log opcodes
+
+    $(diffoutputdiv).append(diffview.buildView({baseTextLines: base, newTextLines: newtxt, opcodes: opcodes, baseTextName: label1, newTextName: label2, contextSize: 0, viewType: 0 }))
+
+
+  }
+    var timeline = true;
+  </script>
+<% end %>
+
+<div id="answer-show">
+
+</div>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Linha do Tempo
+        <small>Analise as respostas ao longo do tempo</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><i class="fa fa-home"></i> <%= link_to "Home", dashboard_home_path %></li>
+        <li class="active"><i class="fa fa-clock-o"></i> Linha do Tempo</li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+    <div class="row">
+        <div style="margin-bottom:20px;" class="col-md-10 col-md-offset-1">
+           <%= render(:partial => 'search_bar', :locals => { :form_id => "search-form", :path => dashboard_timeline_search_path(page:1) }) %>
+           <%= render(:partial => 'search_filters', :locals => { :form_id => "search-form", :users => @users, :teams => @teams, :los => @los, :questions => @questions, :tags => @tags }) %>
+        </div>
+    </div>
+
+	<!-- row -->
+	<div class="row">
+	    <div id="timelinee" class="col-md-12">
+
+	    </div><!-- /.col -->
+	</div><!-- /.row -->
+</section><!-- /.content -->

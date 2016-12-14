@@ -1,0 +1,9 @@
+<div class="row">
+  <div id="search-result-count" class="col-md-12 text-center" style="margin-bottom:20px;">
+    <%= as.count %> respostas encontradas.<br>
+    <%= paginate(as) %>
+    <%= filter_in_words(@params) %>
+  </div>
+</div>
+
+<%= render :partial => "dashboard/answers/answer_card", :locals => {:answers => as, :button_tag => false, :n => 4, :button_add => button_add} %>
