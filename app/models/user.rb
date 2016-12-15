@@ -61,6 +61,27 @@ class User
 
   index({ email: 1 }, { unique: true, background: true })
 
+  def questions_without_tries
+    questions = []
+
+    self.teams.each do |t|
+      t.los.each do |lo|
+        lo.exercises.each do |ex|
+          ex.questions.each do |q|
+            if self.progress_question(t.id,q.id) == 0.0
+              questions << [t,q]
+            end
+          end
+        end
+      end
+    end
+    questions
+  end
+
+  def last_try
+    Answer.where(:user_id => self.id).desc(:created_at).first
+  end
+
   def all_los
     if self.admin?
       Lo.all.asc(:name)

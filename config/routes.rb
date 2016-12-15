@@ -8,11 +8,12 @@ Rails.application.routes.draw do
   root to: "static_pages#home"
 
   namespace :dashboard do
-    get "/home",     to: "dashboard#home"
-    get "/timeline", to: "dashboard#timeline"
-    get "/search",   to: "dashboard#search"
-    get "/tags",     to: "dashboard#tags"
-    get "/help",     to: "dashboard#help"
+    get "/home",       to: "dashboard#home"
+    get "/timeline",   to: "dashboard#timeline"
+    get "/search",     to: "dashboard#search"
+    get "/tags",       to: "dashboard#tags"
+    get "/help",       to: "dashboard#help"
+    get "/hide_help",  to: "dashboard#hide_help"
 
     put "fulltext_search/page/:page", action: "fulltext_search", as: "fulltext_search"
     put "timeline_search/page/:page", action: "timeline_search", as: "timeline_search"

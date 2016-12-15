@@ -1,1 +1,508 @@
-<h1>Dashboard home</h1>
+<%= content_for :scripts do %>
+  <%= javascript_include_tag 'dashboard/resizeApp' %>
+  <%= javascript_include_tag 'difflib' %>
+  <%= javascript_include_tag 'diffview' %>
+  <%= javascript_include_tag 'dashboard/home' %>
+
+  <link rel="stylesheet" href="http://cdn.oesmith.co.uk/morris-0.5.1.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+  <script src="http://cdn.oesmith.co.uk/morris-0.5.1.min.js"></script>
+  <script type="text/javascript">
+  function diffUsingJS(div_id,label1,txt1,label2,txt2){
+    // get the baseText and newText values from the two textboxes, and split them into lines
+    base = difflib.stringAsLines(txt1);//$("baseText").value);
+    newtxt = difflib.stringAsLines(txt2);//$("newText").value);
+
+    //create a SequenceMatcher instance that diffs the two sets of lines
+    sm = new difflib.SequenceMatcher(base, newtxt);
+
+    // get the opcodes from the SequenceMatcher instance
+    // opcodes is a list of 3-tuples describing what changes should be made to the base text
+    // in order to yield the new text
+    opcodes = sm.get_opcodes();
+    diffoutputdiv = $("#"+div_id);
+    while(diffoutputdiv.firstChild)
+      diffoutputdiv.removeChild(diffoutputdiv.firstChild);
+
+    //console.log opcodes
+
+    $(diffoutputdiv).append(diffview.buildView({baseTextLines: base, newTextLines: newtxt, opcodes: opcodes, baseTextName: label1, newTextName: label2, contextSize: 0, viewType: 0 }))
+  }
+
+  </script>
+<% end %>
+
+
+<div id="answer-show">
+
+</div>
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Home
+        <small>Painel principal</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><i class="fa fa-home"></i> Home</li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+  <div class="row">
+
+    <% @boxes[0..3].each do |box| %>
+      <div class="col-lg-3 col-xs-6">
+          <!-- small box  -->
+          <div class="small-box  <%= box[:color] %>">
+              <div class="inner">
+                  <h3>
+                      <%= box[:value] %>
+                  </h3>
+                  <p>
+                      <%= box[:title] %>
+                  </p>
+              </div>
+              <div class="icon">
+                  <i class="<%= box[:icon] %>"></i>
+              </div>
+              <% if box[:has_link?] %>
+                <%= link_to box[:link], :class => "small-box-footer" do %>
+                  Ver detalhes <i class="fa fa-arrow-circle-right"></i>
+                <% end %>
+              <% else %>
+                <div class="small-box-footer" style="background: rgba(0,0,0,0.0);">
+                </div>
+              <% end %>
+          </div>
+      </div><!-- ./col -->
+    <% end %>
+  </div>
+
+    <!-- Main row -->
+    <div class="row" id="help">
+      <% if current_user.student? and not current_user.prof? and not current_user.admin? %>
+        <section class="col-lg-12">
+          <div class="box  box-success">
+            <div class="box-header">
+                <!-- tools box  -->
+                <div class="pull-right box-tools">
+                  <button class="btn btn-danger btn-sm" data-widget='remove'><i class="fa fa-times"></i></button>
+                </div><!-- /. tools -->
+                <i class="fa fa-exclamation-circle"></i>
+
+                <h3 class="box-title">Pesquisa</h3>
+            </div><!-- /.box-header -->
+            <div class="box-body">
+              <p>
+                Por favor, nos ajude em nossa pesquisa respondendo um pequeno e rápido questionário.
+              <br>
+                Obrigado!
+              </p>
+              <a target="_blank" href="https://docs.google.com/forms/d/1RynIU6khH7CBnlg_ZH5CiiURpb6Wv2E69eWlgouxjkI/viewform?usp=send_form">
+                <button class="btn btn-success btn-sm"><i class="fa fa-check"> Responder questionário</i></button>
+              </a>
+            </div>
+        </section>
+      <% end %>
+        <!-- Left col -->
+        <section class="col-lg-8 col-lg-offset-2">
+
+          <% if current_user.show_help %>
+          <!-- box  (with bar chart) -->
+          <div class="box  box-info">
+              <div class="box-header">
+                  <!-- tools box  -->
+                  <div class="pull-right box-tools">
+                    <%= link_to  dashboard_hide_help_path, :remote => true do %>
+                      <button class="btn btn-default btn-sm"><i class="fa fa-check"></i> Ok, ententi. Não exibir novamente</button>
+                    <% end %>
+                    <button class="btn btn-info btn-sm" data-widget='collapse' ><i class="fa fa-minus"></i></button>
+                    <button class="btn btn-danger btn-sm" data-widget='remove'><i class="fa fa-times"></i></button>
+                  </div><!-- /. tools -->
+                  <i class="fa fa-exclamation-circle"></i>
+
+                  <h3 class="box-title">Bem-vindo ao Farma-alg <%= @subdomain %></h3>
+              </div><!-- /.box-header -->
+
+              <div class="box-body">
+                  <p>
+                    O objetivo deste sistema é permitir o acesso e a mediação dos registros de respostas por professores e alunos.
+                  </p>
+
+                <% if current_user.prof? %>
+                  <p>
+                    Você está cadastrado como <b>Professor</b>. Caso isto esteja incorreto, por favor, entre em contato por <a href="mailto:alexander@inf.ufpr.br">email</a> solicitando a alteração.
+                  </p>
+
+                  <p>
+                    Por meio deste sistema, você pode criar Objetos de Aprendizagem (O.A.s) para o ensino de programação de computadores
+                    e disponibilizá-los para seus alunos.
+                  </p>
+
+                  <p>
+                    Você pode criar seus O.A.s pela opção <b><i class="fa fa-pencil-square-o"></i> <span>Meus O.A.'s</span></b> no menu
+                    esquerdo. Feito isso, crie suas turmas por meio da opção <b><i class="fa fa-users"></i> <span>Turmas</span></b>.
+                  </p>
+                <% else %>
+                  <p>
+                    Você está cadastrado como <b>Aluno</b>. Caso isto esteja incorreto, por favor, entre em contato por <a href="mailto:alexander@inf.ufpr.br">email</a> solicitando a alteração.
+                  </p>
+
+                  <p>
+                    Por meio deste sistema, você pode responder os exercícios passados por seus professores. Suas respostas
+                    ficarão armazenadas e disponíveis para você e para seu professor.
+                  </p>
+
+                <% end %>
+
+                  <p>
+                    As opções disponíveis para você são:
+                  </p>
+
+                  <dl class="dl-horizontal">
+                    <% if current_user.prof? %>
+                    <dt>
+                      <i class="fa fa-code-fork"></i> <span><b>Grafo de Manipulação</b></span>
+                    </dt>
+                    <dd>
+                      visualize e manipule as respostas de seus alunos através das visualização do grafo de repostas. Aqui, o sistema analisa a semelhança entre as respostas de seus alunos e as exibe em forma de rede, ou seja, com as respostas conectadas entre si.
+                    </dd>
+                    <% end %>
+                    <dt>
+                      <b><i class="fa fa-clock-o"></i> <span>Linha do Tempo</span></b>
+                    </dt>
+                    <dd>
+                      visualize as respostas seguindo sua ordem cronológica.
+                    </dd>
+                    <dt>
+                      <b><i class="fa fa-search"></i> <span>Busca</span></b>
+                    </dt>
+                    <dd>
+                      Procure por registros de respostas.
+                    </dd>
+                    <% if current_user.prof? %>
+                    <dt>
+                      <b><i class="fa fa-tags"></i> <span>Tags</span></b>
+                    </dt>
+                    <dd>
+                      Crie tags e classifique as respostas que desejar. Consulte, também, a classificação semi-automática de respostas, realizada pelo sistema.
+                    </dd>
+                    <% end %>
+                    <% if current_user.prof? %>
+                    <dt>
+                      <b><i class="fa fa-envelope"></i> <span>Mensagens</span></b>
+                    </dt>
+                    <dd>
+                      Envie mensagens e recomendações de respostas e questões para seus alunos e grupos de alunos.
+                    </dd>
+                    <% else %>
+
+                    <dt>
+                      <b><i class="fa fa-envelope"></i> <span>Mensagens</span></b>
+                    </dt>
+                    <dd>
+                      Verifique mensagens e recomendações enviadas por seus professores.
+                    </dd>
+                    <% end %>
+                    <% if current_user.prof? %>
+                    <dt>
+                      <b><i class="fa fa-pencil-square-o"></i> <span>Meus O.A.'s</span></b>
+                    </dt>
+                    <dd>
+                      Manipule seus Objetos de Aprendizagem.
+                    </dd>
+                    <dt>
+                      <b><i class="fa fa-users"></i> <span>Turmas</span></b>
+                    </dt>
+                    <dd>
+                      Crie, edite ou apague suas turmas.
+                    </dd>
+                    <% else %>
+                    <dt>
+                      <b><i class="fa fa-users"></i> <span>Turmas Disponíveis</span></b>
+                    </dt>
+                    <dd>
+                      Lista de turmas disponíveis para matrícula.
+                    </dd>
+                    <% end %>
+                    <% if current_user.prof? %>
+                    <dt>
+                      <b><i class="fa fa-users"></i> <span>Minhas Turmas</span></b>
+                    </dt>
+                    <dd>
+                      Consulte mais detalhes sobre cada uma de suas turmas.
+                    </dd>
+                    <% else %>
+
+                    <dt>
+                      <b><i class="fa fa-pencil-square-o"></i> <span>Turmas Matriculadas</span></b>
+                    </dt>
+                    <dd>
+                      Acesse os O.A.s disponibilizados em cada uma das turmas em que você está matriculado. Acesse, também, mais informações sobre seu progresso nos O.A.s e suas respostas.
+                    </dd>
+                    <% end %>
+
+                  </dl>
+
+              </div><!-- /.box-body -->
+          </div><!-- /.box  -->
+          <% end %>
+        </section>
+      </div>
+
+
+
+    <!-- Main row -->
+    <div class="row">
+        <!-- Left col -->
+        <section class="col-lg-6">
+
+          <% unless current_user.prof? %>
+            <!-- box  (with bar chart) -->
+            <div class="box  box-info">
+                <div class="box-header">
+                    <!-- tools box  -->
+                    <div class="pull-right box-tools">
+                        <button class="btn btn-info btn-sm" data-widget='collapse' ><i class="fa fa-minus"></i></button>
+                    </div><!-- /. tools -->
+                    <i class="fa fa-check"></i>
+
+                    <h3 class="box-title">Turmas em que estou matriculado</h3>
+                </div><!-- /.box-header -->
+
+                <div class="box-body shorted-box">
+                  <% if current_user.teams.empty? %>
+                    <p class="text-center">
+                      Nenhuma resposta.
+                    </p>
+                  <% end %>
+                  <% current_user.teams.each do |t| %>
+                    <section class="well">
+                      <header class="clearfix">
+                        <div class="left">
+                          <h4><%= link_to t.name,panel_team_user_path(t,current_user)%></h4>
+                            <span class="date-info">(Prof(a). <%= User.find(t.owner_id).name %>)</span>
+                        </div>
+                      </header>
+                    </section>
+                  <% end %>
+                </div><!-- /.box-body -->
+            </div><!-- /.box  -->
+          <% end %>
+
+
+            <!-- box  (with bar chart) -->
+            <div class="box  box-info">
+                <div class="box-header">
+                    <!-- tools box  -->
+                    <div class="pull-right box-tools">
+                        <button class="btn btn-info btn-sm" data-widget='collapse' ><i class="fa fa-minus"></i></button>
+                    </div><!-- /. tools -->
+                    <i class="fa fa-comments"></i>
+                    <% if current_user.prof? %>
+                      <h3 class="box-title">Últimos comentários nas suas turmas</h3>
+                    <% else %>
+                      <h3 class="box-title">Últimos comentários nas suas respostas</h3>
+                    <% end %>
+                </div><!-- /.box-header -->
+
+                <div class="box-body shorted-box">
+                  <% if @last_comments.empty? %>
+                    <p class="text-center">
+                      Nenhum comentário.
+                    </p>
+                  <% end %>
+                  <% @last_comments.each do |c| %>
+                    <% unless c.created_at.nil? %>
+                      <div class="box  box-solid" style="border: 1px solid lightgray;">
+                        <div class="box-header">
+                            <h3 class="box-title" style="width:80%;">
+                              <div class="pull-left image">
+                                  <img src="http://www.gravatar.com/avatar/<%= c.user.gravatar%>" class="img-circle" alt="Imagem do usuário" style="width:50px;margin-right:10px;"/>
+                              </div>
+                              <%= c.user.name %>
+                              <br><small><i class="fa fa-clock-o"></i> há <%= time_ago_in_words c.created_at %></small>
+                              <br>
+                              <small>
+                                na resposta à
+                                <%= link_to panel_team_user_lo_question_answer_path(c.team_id,c.target_user_id,c.answer.lo_id,c.question_id,c.answer_id) do %>
+                                  questão <strong><%= Question.find(c.question_id).title %></strong> na turma <strong><%= Team.find(c.team_id).name %></strong>
+                                <% end %>
+                              </small>
+                            </h3>
+                        </div>
+                        <div class="box-body">
+                            <%= simple_format c.text %>
+                        </div><!-- /.box-body -->
+                      </div>
+
+                   <% end %>
+                 <% end %>
+                </div><!-- /.box-body -->
+            </div><!-- /.box  -->
+
+
+            <% if current_user.prof? %>
+            <!-- box  (with bar chart) -->
+            <div class="box  box-info">
+                <div class="box-header">
+                    <!-- tools box  -->
+                    <div class="pull-right box-tools">
+                        <button class="btn btn-info btn-sm" data-widget='collapse' ><i class="fa fa-minus"></i></button>
+                    </div><!-- /. tools -->
+                    <i class="fa fa-check"></i>
+
+                    <h3 class="box-title">Últimas respostas das suas turmas</h3>
+                </div><!-- /.box-header -->
+
+                <div class="box-body shorted-box">
+                  <% if @last_answers.empty? %>
+                    <p class="text-center">
+                      Nenhuma resposta.
+                    </p>
+                  <% end %>
+                  <% @last_answers.each do |a| %>
+                    <%= answer_link(a) %>
+                  <% end %>
+                </div><!-- /.box-body -->
+            </div><!-- /.box  -->
+            <% end %>
+
+        </section><!-- /.Left col -->
+
+        <!-- right col (We are only adding the ID to make the widgets sortable)-->
+        <section class="col-lg-6">
+
+
+            <!-- box  (with bar chart) -->
+            <div class="box  box-info">
+                <div class="box-header">
+                    <!-- tools box  -->
+                    <div class="pull-right box-tools">
+                        <button class="btn btn-info btn-sm" data-widget='collapse' ><i class="fa fa-minus"></i></button>
+                    </div><!-- /. tools -->
+                    <i class="fa fa-envelope"></i>
+
+                    <h3 class="box-title">Últimas mensagens para você</h3>
+                </div><!-- /.box-header -->
+
+                <div class="box-body shorted-box">
+                  <% if @last_messages.empty? %>
+                    <p class="text-center">
+                      Nenhuma mensagem.
+                    </p>
+                  <% end %>
+                  <% @last_messages.each do |m| %>
+
+
+                    <div class="box  box-solid" style="border: 1px solid lightgray;">
+                      <div class="box-header">
+                          <h3 class="box-title" style="width:80%;">
+                            <div class="pull-left image">
+                                <img src="http://www.gravatar.com/avatar/<%= m.user.gravatar%>" class="img-circle" alt="Imagem do usuário" style="width:50px;margin-right:10px;"/>
+                            </div>
+                            <% if m.has_recommendation? %>
+                              <span><i class="fa fa-paperclip"></i> </span>
+                            <% end %>
+                            <a href="<%= dashboard_message_path(m) %>">
+                            <%= m.subject.truncate(30) %>
+                          </a>
+                            <br>
+                            <small>
+                            De: <%= m.user.name %>
+                          </small>
+                          <br>
+                            <small>
+                              <% if current_user.is_message_new?(m) %>
+                                <span class="badge bg-green">nova</span>
+                              <% end %>
+
+                              <i class="fa fa-clock-o"></i> <%= time_ago_in_words m.updated_at %>
+                            </small>
+                          </h3>
+                      </div>
+                      <div class="box-body">
+                          <%= m.content.truncate(100) %>
+                      </div><!-- /.box-body -->
+                    </div>
+
+
+                <% end %>
+                </div><!-- /.box-body -->
+            </div><!-- /.box  -->
+
+            <% unless current_user.prof? %>
+
+
+              <!-- box  (with bar chart) -->
+              <div class="box  box-info">
+                  <div class="box-header">
+                      <!-- tools box  -->
+                      <div class="pull-right box-tools">
+                          <button class="btn btn-info btn-sm" data-widget='collapse' ><i class="fa fa-minus"></i></button>
+                      </div><!-- /. tools -->
+                      <i class="fa fa-check"></i>
+
+                      <h3 class="box-title">Minhas últimas respostas</h3>
+                  </div><!-- /.box-header -->
+
+                  <div class="box-body shorted-box">
+                    <% if @last_answers.empty? %>
+                      <p class="text-center">
+                        Nenhuma resposta.
+                      </p>
+                    <% end %>
+                    <% @last_answers.each do |a| %>
+                      <%= answer_link(a) %>
+                    <% end %>
+                  </div><!-- /.box-body -->
+              </div><!-- /.box  -->
+            <% end %>
+
+            <% if current_user.prof? %>
+            <!-- box  (with bar chart) -->
+            <div class="box  box-info">
+                <div class="box-header">
+                    <!-- tools box  -->
+                    <div class="pull-right box-tools">
+                        <button class="btn btn-info btn-sm" data-widget='collapse' ><i class="fa fa-minus"></i></button>
+                    </div><!-- /. tools -->
+                    <i class="fa fa-exclamation"></i>
+
+                    <h3 class="box-title">Recomendações automáticas para você</h3>
+                </div><!-- /.box-header -->
+
+                <div class="box-body shorted-box">
+                  <% if @recommendations.empty? %>
+                    <p class="text-center">
+                      Nenhuma recomendação no momento.
+                    </p>
+                  <% end %>
+                  <% unless @recommendations.empty? %>
+                    <% @recommendations.each do |recommendation| %>
+                      <%= render :partial => "recommendation", :locals => {:recommendation => recommendation} %>
+                    <% end %>
+                  <% end %>
+                </div><!-- /.box-body -->
+<!--
+                <div class="box-footer">
+                    <div class="row">
+                        <div class="col-xs-4 text-center" style="border-right: 1px solid #f4f4f4">
+
+                        </div>
+                    </div>
+                </div>-->
+            </div><!-- /.box  -->
+            <% end %>
+
+
+
+        </section><!-- right col -->
+
+    </div><!-- /.row (main row) -->
+
+
+</section><!-- /.content -->
