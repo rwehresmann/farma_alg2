@@ -14,12 +14,13 @@ Rails.application.routes.draw do
     get "/tags",       to: "dashboard#tags"
     get "/help",       to: "dashboard#help"
     get "/hide_help",  to: "dashboard#hide_help"
+    get "/graph",      to: "dashboard#graph"
 
-    put "fulltext_search/page/:page", action: "fulltext_search", as: "fulltext_search"
-    put "timeline_search/page/:page", action: "timeline_search", as: "timeline_search"
-    put "graph_search/page/:page", action: "graph_search", as: "graph_search"
-    put "tags_search/page/:page", action: "tags_search", as: "tags_search"
-    put "tags_search_aat", action: "tags_search_aat", as: "tags_search_aat"
+    put "fulltext_search/page/:page", to: "dashboard#fulltext_search", as: "fulltext_search"
+    put "timeline_search/page/:page", to: "dashboard#timeline_search", as: "timeline_search"
+    put "graph_search/page/:page", to: "dashboard#graph_search", as: "graph_search"
+    put "tags_search/page/:page", to: "dashboard#tags_search", as: "tags_search"
+    put "tags_search_aat", to: "dashboard#tags_search_aat", as: "tags_search_aat"
 
     resources :messages
 
@@ -33,5 +34,9 @@ Rails.application.routes.draw do
       get :available, to: "teams#available"
       post :enroll, to: "teams#enroll"
     end
+  end
+
+  namespace :panel do
+    resources :teams, only: [:show]
   end
 end

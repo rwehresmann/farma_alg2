@@ -1,0 +1,230 @@
+<%= content_for :scripts do %>
+  <%= javascript_include_tag 'dashboard/resizeApp' %>
+  <%= javascript_include_tag 'answers_panel/vivagraph' %>
+  <%= javascript_include_tag 'dashboard/graph.js' %>
+  <%= javascript_include_tag 'difflib' %>
+  <%= javascript_include_tag 'diffview' %>
+  <%= javascript_include_tag 'codemirror/lib/codemirror' %>
+  <%= javascript_include_tag 'codemirror/mode/pascal/pascal' %>
+  <%= javascript_include_tag 'codemirror/mode/ruby/ruby' %>
+  <%= javascript_include_tag 'codemirror/mode/clike/clike' %>
+  <%= javascript_include_tag 'prettify' %>
+  <%= javascript_include_tag 'run_prettify' %>
+
+<script type="text/javascript">
+  function diffUsingJS(div_id,label1,txt1,label2,txt2){
+    // get the baseText and newText values from the two textboxes, and split them into lines
+    base = difflib.stringAsLines(txt1);//$("baseText").value);
+    newtxt = difflib.stringAsLines(txt2);//$("newText").value);
+
+    //create a SequenceMatcher instance that diffs the two sets of lines
+    sm = new difflib.SequenceMatcher(base, newtxt);
+
+    // get the opcodes from the SequenceMatcher instance
+    // opcodes is a list of 3-tuples describing what changes should be made to the base text
+    // in order to yield the new text
+    opcodes = sm.get_opcodes();
+    diffoutputdiv = $("#"+div_id);
+    while(diffoutputdiv.firstChild)
+      diffoutputdiv.removeChild(diffoutputdiv.firstChild);
+
+    //console.log opcodes
+
+    $(diffoutputdiv).append(diffview.buildView({baseTextLines: base, newTextLines: newtxt, opcodes: opcodes, baseTextName: label1, newTextName: label2, contextSize: 0, viewType: 0 }))
+  }
+  </script>
+<% end %>
+
+<div id="answer-show"> <!-- class="resize" style="right:10px;left:initial;position:absolute;"> -->
+
+</div>
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Grafo de Manipulação
+        <small>Manipule respostas</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><i class="fa fa-home"></i> <%= link_to "Home", dashboard_home_path %></li>
+        <li class="active"><i class="fa fa-code-fork"></i> Grafo de Manipulação</li>
+    </ol>
+</section>
+
+<div id="graph" class="resize" data-resize-operation-width="$('.right-side').width()" data-resize-operation-height="$(window).height()-$('.header').height()-$('.content-header').height()-28"></div>
+
+<!-- Main content -->
+<section class="content">
+
+    <div class="row">
+
+<!--
+<div id="answer-show"> class="resize" style="right:10px;left:initial;position:absolute;">
+</div>
+-->
+    </div>
+
+
+    <div class="row">
+        <div id="toolbar" class="col-md-1">
+
+            <div class="row toolbar-item">
+                <div class="toolbar-btn-label">
+                    <div class="col-md-10">
+                        <span class="input-group-addon">Adicionar respostas ao grafo</span>
+                    </div>
+                </div>
+                <div class="toolbar-btn-element" style="left: 70px;">
+                    <div class="col-md-10">
+                        <div class="row" style="pointer-events: initial;">
+                            <div class="col-md-12 no-padding">
+                                <%= render(:partial => 'search_bar', :locals => { :form_id => "search-form", :path => dashboard_graph_search_path(page:1) }) %>
+                                <% # render(:partial => 'search_filters', :locals => { :form_id => "search-form", :users => @users, :teams => @teams, :los => @los, :questions => @questions, :tags => @tags }) %>
+                            </div>
+                        </div>
+                        <div id="search-result-container" class="row" style="display:none;">
+                            <div id="graph-search-result" class="col-md-12 no-padding">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="toolbar-btn text-center">
+                    <%= button_tag raw("<i class='fa fa-plus-circle'></i>"), :class => "btn btn-flat btn-default",:id => "add-node" %>
+                </div>
+            </div>
+
+            <div class="row toolbar-item">
+                <div class="toolbar-btn-label">
+                    <div class="col-md-10">
+                        <span class="input-group-addon" >Remover respostas do grafo</span>
+                    </div>
+                </div>
+                <div class="toolbar-btn-element">
+                    <div class="col-md-10">
+                        <span class="input-group-addon" >Clique nas respostas que deseja retirar do grafo<br />
+                        Pressione ESC para terminar</span>
+                    </div>
+                </div>
+                <div class="toolbar-btn text-center">
+                    <%= button_tag raw("<i class='fa fa-minus-circle''></i>"), :class => "btn btn-flat btn-default", :id => "remove-answer" %>
+                </div>
+            </div>
+
+            <div class="row toolbar-item">
+                <div class="toolbar-btn-label">
+                    <div class="col-md-10">
+                        <span class="input-group-addon" >Adicionar uma aresta</span>
+                    </div>
+                </div>
+                <div class="toolbar-btn-element">
+                    <div class="col-md-10">
+                        <span class="input-group-addon" >Selecione duas respostas no grafo para adicionar uma aresta<br />
+                        Pressione ESC para terminar</span>
+                    </div>
+                </div>
+                <div class="toolbar-btn text-center">
+                    <%= button_tag raw("<i class='fa fa-code-fork''></i>"), :class => "btn btn-flat btn-default", :id => "add-edge"  %>
+                </div>
+            </div>
+<!--
+            <div class="row toolbar-item">
+                <div class="toolbar-btn-label">
+                    <div class="col-md-10">
+                        <span class="input-group-addon">Configurações do grafo</span>
+                    </div>
+                </div>
+                <div class="toolbar-btn text-center">
+                    <%= button_tag raw("<i class='fa fa-wrench'></i>"), :class => "btn btn-flat btn-default" %>
+                </div>
+            </div>
+-->
+            <div class="row toolbar-item">
+                <div class="toolbar-btn-label">
+                    <div class="col-md-10">
+                        <span class="input-group-addon">Pausa/Recomeça o movimento do grafo</span>
+                    </div>
+                </div>
+                <div class="toolbar-btn text-center">
+                    <%= button_tag raw("<i class='fa fa-pause'></i>"), :class => "btn btn-flat btn-default", :id => "pause-btn" %>
+                </div>
+            </div>
+
+            <div class="row toolbar-item">
+                <div class="toolbar-btn-label">
+                    <div class="col-md-10">
+                        <span class="input-group-addon">Retornar ao centro do grafo</span>
+                    </div>
+                </div>
+                <div class="toolbar-btn text-center">
+                    <%= button_tag raw("<i class='fa fa-map-marker'></i>"), :class => "btn btn-flat btn-default", :id => "reset-btn" %>
+                </div>
+            </div>
+
+            <div class="row toolbar-item">
+                <div class="toolbar-btn-label">
+                    <div class="col-md-10">
+                        <span class="input-group-addon">Remover todas as repostas do grafo</span>
+                    </div>
+                </div>
+                <div class="toolbar-btn text-center">
+                    <%= button_tag raw("<i class='fa fa-trash-o'></i>"), :class => "btn btn-flat btn-default", :id => "clean-btn" %>
+                </div>
+            </div>
+
+            <div class="row toolbar-item">
+                <div class="toolbar-btn-label">
+                    <div class="col-md-10">
+                        <span class="input-group-addon" >Link para este grafo</span>
+                    </div>
+                </div>
+                <div class="toolbar-btn-element">
+                    <div class="col-md-10">
+                        <textarea class="form-control" id="link-span" rows="3" style="pointer-events:initial;"></textarea>
+                    </div>
+                </div>
+                <div class="toolbar-btn text-center">
+                    <%= button_tag raw("<i class='fa fa-link'></i>"), :class => "btn btn-flat btn-default", :id => "link-btn" %>
+                </div>
+            </div>
+
+            <div class="row toolbar-item">
+                <div class="toolbar-btn-label">
+                    <div class="col-md-10">
+                        <span class="input-group-addon" >Instruções de uso</span>
+                    </div>
+                </div>
+                <div class="toolbar-btn-element" style="left: 70px;background: whitesmoke;max-height: 250px;">
+                    <div class="col-md-10" style="overflow:scroll;">
+                        <h3>Instruções</h3>
+                        <p>
+                          Adicione as respostas desejadas no grafo através da opção <i class='fa fa-plus-circle'></i>.
+                        </p>
+                        <p>
+                          Para mais informações sobre uma resposta, clique duas vezes no vértice em questão.
+                        </p>
+                        <p>
+                          Para mais informações sobre uma relação de semelhança, clique duas vezes no na aresta em questão.
+                        </p>
+                    </div>
+                </div>
+                <div class="toolbar-btn text-center">
+                    <%= button_tag raw("<i class='fa fa-question'></i>"), :class => "btn btn-flat btn-default" %>
+                </div>
+            </div>
+
+
+
+            <div class="row toolbar-item">
+
+
+                  <div style="height: 100px;left: 36px;top: 280px;" id="slider"></div>
+                  <div style="left: 30px;top: 287px; position:relative;" id="slider_value"></div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section><!-- /.content -->

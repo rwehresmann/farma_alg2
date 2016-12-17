@@ -59,7 +59,7 @@ class User
   validates_presence_of :name
   validate :cannot_be_nil
 
-  index({ email: 1 }, { unique: true, background: true })
+  index({ email: "text" }, { background: true })
 
   def questions_without_tries
     questions = []

@@ -38,13 +38,22 @@
                 <%= a.user.name %>
               </td>
               <td>
-                <%= a.question.title %>
+                <%=
+                  update_question(a) if a.question.nil?
+                  a.question.title
+                %>
               </td>
               <td>
-                <%= a.team.name %>
+                <%=
+                  update_team(a) if a.team.nil?
+                  a.team.name
+                %>
               </td>
               <td>
-                <%= a.lo.name %>
+                <%=
+                  update_lo(a) if a.lo.nil?
+                  a.lo.name
+                %>
               </td>
               <td>
                 #<%= a.try_number %>

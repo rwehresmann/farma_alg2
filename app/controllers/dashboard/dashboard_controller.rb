@@ -124,14 +124,19 @@ class Dashboard::DashboardController < ApplicationController
   end
 
   def graph_search
-		@as = Answer.search(params,current_user).entries
+		@as = [Answer.last] #Answer.search(params,current_user).entries
 		@total = @as.count
 		#@as = @as.first(50)
 		@params =params
 
 		Log.log_search_graph(current_user.id,params)
 
-    render 'graph_search_result'
+    #render partial: 'graph_search_result'
+
+    respond_to do |format|
+      format.html { render partial: 'graph_search_result' }
+      format.js { render 'graph_search_result' }
+    end
   end
 
 	def hide_help

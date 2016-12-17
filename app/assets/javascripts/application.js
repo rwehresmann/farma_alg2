@@ -16,9 +16,10 @@
 //= require jquery_ujs
 //= require AdminLTE/bootstrap
 //= require AdminLTE/AdminLTE/app
-// require jquery-ui
+//= require jquery-ui-1.9.2.custom.min
 //= require jquery_ujs
 //= require jquery.md5
+//= require tether
 //= require bootbox4.min
 //= require codemirror/lib/codemirror
 //= require codemirror/mode/pascal/pascal

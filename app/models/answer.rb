@@ -31,9 +31,9 @@ class Answer
   field :rejected_tags, type: Array, default: []
   field :primary_applied, type: Boolean, default: false
 
-  field :lo, type: Hash
+  # field :lo, type: Hash
   field :exercise, type: Hash
-  field :question, type: Hash
+  # field :question, type: Hash
   field :team, type: Hash
 
   field :team_id, type: Moped::BSON::ObjectId
@@ -46,16 +46,22 @@ class Answer
   # search_in :response, :compile_errors, :user => :name, :question => :title, :question => :content
 
   alias :super_exercise :exercise
-  alias :super_question :question
+  # alias :super_question :question
 
   # attr_accessible :id, :response, :user_id, :team_id, :lo_id, :exercise_id, :question_id, :for_test, :try_number, :results, :lang, :retroaction
 
-  belongs_to :user, index: true
+  belongs_to :user
+  belongs_to :question
   has_one :last_answer
+  belongs_to :team
+  belongs_to :lo
   #embeds_many :comments, :as => :commentable
   has_many :comments
   has_many :connections, dependent: :delete
   has_and_belongs_to_many :tags, index: true
+
+  index({ user_id: "text" }, { background: true })
+  # index({ tag_ids: "text" }, { background: true })
 
   default_scope -> { excludes(team_id:nil) }
 
@@ -193,17 +199,17 @@ class Answer
   end
 
 	# Herdado do FARMA.
-  def question_as_json(user_id)
-    question = super_question
-    %w(position available lo_id updated_at test_cases exercise_id correct_answer).each {|e| question.delete(e)}
+  #def question_as_json(user_id)
+  #  question = super_question
+  #  %w(position available lo_id updated_at test_cases exercise_id correct_answer).each {|e| question.delete(e)}
     #question['last_answer']['last_answers'] = Answer.where(user_id: user_id, question_id:question['id']).desc(:created_at).first.as_json
     #question['last_answer']['last_answers'].delete('los_ids')
     #question['last_answer']['last_answers'].delete('question')
     #question['last_answer']['last_answers'].delete('exercise')
     #question['last_answer']['last_answers'].delete('lo')
     #question['last_answer']['last_answers'].delete('team')
-    question
-  end
+  #  question
+  #end
 
 	# Herdado do FARMA.
   def team
@@ -676,15 +682,19 @@ private
   end
 
   def self.search(params,user,page=false)
+    #<ActionController::Parameters
+    #{"utf8"=>"✓", "_method"=>"put", "query"=>"teste", "button"=>"",
+    #"controller"=>"dashboard/dashboard", "action"=>"graph_search", "page"=>"1"} permitted: false>
+
     as = Answer.search_without_tags(params,user)
 
     if user.prof?
       if params.has_key?(:tag_ids)
         answer_ids = []
         Tag.find(params[:tag_ids]).each do |t|
-          answer_ids += t.answer_ids
         end
 
+        answer_ids += t.answer_ids
         as = as.in(:id.in => answer_ids)
       #  as = Kaminari.paginate_array(as.entries.keep_if { |a| not (a.tag_ids & params[:tag_ids]).empty? })
       end
@@ -715,6 +725,8 @@ private
   end
 
   def self.search_without_tags(params,user)
+    p params
+    p params.to_hash
     if params.has_key?(:query) and params[:query].empty?
       if params.has_key?(:daterange) and params[:daterange].empty?
         if not params.has_key?(:user_ids) and
@@ -731,7 +743,7 @@ private
     as = Answer.excludes(team_id: nil, for_test: true).desc(:created_at)
 
     if params.has_key?(:query) and not params[:query].empty?
-      as = as.full_text_search(params[:query], match: :all)
+      as = as.text_search(params[:query])
     end
 
     if params.has_key?(:daterange) and not params[:daterange].empty?

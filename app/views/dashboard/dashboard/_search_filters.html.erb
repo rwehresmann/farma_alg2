@@ -1,8 +1,8 @@
 <%= content_for :scripts do %>
-  <%= javascript_include_tag 'dashboard/search_filters' %>
   <%= javascript_include_tag 'AdminLTE/plugins/daterangepicker/daterangepicker' %>
+  <%= javascript_include_tag 'dashboard/search_filters' %>
 <% end %>
-
+<script src="https://raw.github.com/rochal/jQuery-slimScroll/master/jquery.slimscroll.min.js"></script>
 <div id="filters">
 
 
@@ -15,9 +15,7 @@
 
                         <div class="box box-solid" style="margin-bottom:0px;">
                             <div class="box-header">
-
-                                    <button id="filters-close-btn" class="btn btn-default btn-sm" style="margin:10px;"><i class="fa fa-angle-double-right"></i> Fechar filtros</button>
-
+                              <button id="filters-close-btn" class="btn btn-default btn-sm" style="margin:10px;"><i class="fa fa-angle-double-right"></i> Fechar filtros</button>
                             </div>
                             <div id="more-options" class="box-body resize" style="overflow:auto;" data-resize-operation-height="$(window).height()/2 > 300 ? $(window).height()/2 : 300">
                                  <div class="row">

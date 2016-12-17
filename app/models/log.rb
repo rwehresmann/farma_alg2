@@ -21,7 +21,7 @@ class Log
   end
 
   def self.log_recommendation_click(user_id, params)
-    Log.create(type: "RECOM_CLICK", params:  params, user_id: user_id)
+    Log.create(type: "RECOM_CLICK", params: params.to_hash, user_id: user_id)
   end
 
   def self.log_message_view(user_id, message_id)
@@ -53,23 +53,23 @@ class Log
   end
 
   def self.log_connection_reject(user_id, params)
-    Log.create(type: "CONNECTION_REJECT", params:params, user_id: user_id)
+    Log.create(type: "CONNECTION_REJECT", params: params.to_hash, user_id: user_id)
   end
 
   def self.log_search_simple(user_id, params)
-    Log.create(type: "SEARCH_SIMPLE", params: params, user_id: user_id)
+    Log.create(type: "SEARCH_SIMPLE", params: params.to_hash, user_id: user_id)
   end
 
   def self.log_search_timeline(user_id, params)
-    Log.create(type: "SEARCH_TIMELINE", params: params, user_id: user_id)
+    Log.create(type: "SEARCH_TIMELINE", params: params.to_hash, user_id: user_id)
   end
 
   def self.log_search_tag(user_id, params)
-    Log.create(type: "SEARCH_TAG", params: params, user_id: user_id)
+    Log.create(type: "SEARCH_TAG", params: params.to_hash, user_id: user_id)
   end
 
   def self.log_search_graph(user_id, params)
-    Log.create(type: "SEARCH_GRAPH", params: params, user_id: user_id)
+    Log.create(type: "SEARCH_GRAPH", params: params.to_hash, user_id: user_id)
   end
 
   def self.log_add_tag(user_id, answer_id, tag_id)

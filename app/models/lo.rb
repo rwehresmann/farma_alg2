@@ -10,7 +10,8 @@ class Lo
   has_many :introductions, dependent: :delete
   has_many :exercises, dependent: :delete
   has_and_belongs_to_many :teams
-
+  has_many :answers
+  
   validates_presence_of :name, :description
   validates :name, uniqueness: true
   #validates :available, :inclusion => {:in => [true, false]}

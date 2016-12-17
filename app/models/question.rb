@@ -14,6 +14,7 @@ class Question
   has_many :test_cases, dependent: :delete
   # One last answer for each user
   has_many :last_answers, dependent: :delete
+  has_many :answers, dependent: :delete
   has_many :statistics, dependent: :delete
 
   validates_presence_of :title, :content
