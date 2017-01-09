@@ -1,4 +1,8 @@
-# DESCRIPTION
+# THIS PROJECT HAS BEEN DISCONTINUED
+
+A completely new implementation is been made in [FARMA-ALG-REBORN](https://github.com/rwehresmann/farma_alg_reborn). Take a look!
+
+# Description
 
 Reimplementation of [FARMA-ALG](https://github.com/alexkutzke/farma_alg) originally developed by [Alex Kutzke](https://github.com/alexkutzke).
 
